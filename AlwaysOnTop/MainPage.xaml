@@ -7,7 +7,50 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" PointerEntered="BrowserWindow_PointerPressed" PointerPressed="BrowserWindow_PointerPressed">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
+        <!--https://www.eternalcoding.com/?p=1952-->
+        <Grid Grid.Row="0" x:Name="TitleBar" Height="32">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="ToNormalButton" Grid.Column="0" Width="48" Height="32" Click="ToNormalButton_Click" Visibility="Collapsed" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+                <Button.Content>
+                    <SymbolIcon Symbol="Back" Height="10" Width="14"/>
+                </Button.Content>
+            </Button>
+            <Grid Grid.Column="1" x:Name="MainTitleBar" Background="Transparent">
+                <TextBlock x:Name="TitleBlock" Text="Always on Top" VerticalAlignment="Center" FontSize="12" Foreground="{ThemeResource ApplicationForegroundThemeBrush}" Margin="10,0"/>
+            </Grid>
+        </Grid>
+
+        <CommandBar x:Name="CommBar" Grid.Row="1" IsDynamicOverflowEnabled="False">
+            <CommandBar.Content>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+                    <TextBox x:Name="AddressBox" Text="{x:Bind BrowserWindow.Source}" PlaceholderText="Enter web address" InputScope="Url" Margin="8,8,0,0" Width="300" HorizontalAlignment="Stretch" KeyDown="AddressBox_KeyDown"/>
+                    <ProgressRing x:Name="LoadingIndicator" IsActive="False" Margin="8,8,0,0" Visibility="Collapsed"/>
+                </StackPanel>
+            </CommandBar.Content>
+            <AppBarButton x:Name="RefreshButton" Grid.Column="0" Label="Refresh" Icon="Refresh" Click="RefreshButton_Click"/>
+            <AppBarButton x:Name="AOTButton" Grid.Column="2" Label="Always on Top" Click="AOTButton_Click">
+                <AppBarButton.Content>
+                    <!--https://stackoverflow.com/questions/45692232/w10-uwp-compactoverlay-button-icon-->
+                    <Grid>
+                        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Segoe MDL2 Assets" FontSize="30">&#xE7FB;</TextBlock>
+                        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12,4,0,0" FontFamily="Segoe MDL2 Assets" FontSize="12">&#xEB9F;</TextBlock>
+                    </Grid>
+                </AppBarButton.Content>
+            </AppBarButton>
+            <CommandBar.SecondaryCommands>
+                <AppBarButton x:Name="AboutButton" Label="About" Click="AboutButton_Click"/>
+            </CommandBar.SecondaryCommands>
+        </CommandBar>
+        <WebView x:Name="BrowserWindow" Grid.Row="2" Margin="0" NavigationStarting="BrowserWindow_NavigationStarting" NavigationCompleted="BrowserWindow_NavigationCompleted"/>
     </Grid>
 </Page>
