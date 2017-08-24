@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" PointerEntered="BrowserWindow_PointerPressed" PointerPressed="BrowserWindow_PointerPressed">
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -30,12 +30,17 @@
             </Grid>
         </Grid>
 
-        <CommandBar x:Name="CommBar" Grid.Row="1" IsDynamicOverflowEnabled="False">
+        <!--http://blog.mzikmund.com/2017/01/aligning-uwp-commandbar-content-after-anniversary-update/-->
+        <CommandBar x:Name="CommBar" Grid.Row="1" IsDynamicOverflowEnabled="False" HorizontalContentAlignment="Stretch">
             <CommandBar.Content>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
-                    <TextBox x:Name="AddressBox" Text="{x:Bind BrowserWindow.Source}" PlaceholderText="Enter web address" InputScope="Url" Margin="8,8,0,0" Width="300" HorizontalAlignment="Stretch" KeyDown="AddressBox_KeyDown"/>
-                    <ProgressRing x:Name="LoadingIndicator" IsActive="False" Margin="8,8,0,0" Visibility="Collapsed"/>
-                </StackPanel>
+                <Grid HorizontalAlignment="Stretch">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox Grid.Column="0" x:Name="AddressBox" Text="{x:Bind BrowserWindow.Source}" PlaceholderText="Enter web address" InputScope="Url" Margin="8,8" HorizontalAlignment="Stretch" KeyDown="AddressBox_KeyDown"/>
+                    <ProgressRing Grid.Column="1" x:Name="LoadingIndicator" IsActive="False" Width="68" Margin="0,8" Visibility="Collapsed"/>
+                </Grid>
             </CommandBar.Content>
             <AppBarButton x:Name="RefreshButton" Grid.Column="0" Label="Refresh" Icon="Refresh" Click="RefreshButton_Click"/>
             <AppBarButton x:Name="AOTButton" Grid.Column="2" Label="Always on Top" Click="AOTButton_Click">

@@ -76,11 +76,6 @@ namespace AlwaysOnTop
             await dlg.ShowAsync();
         }
 
-        private void BrowserWindow_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-            Debug.WriteLine("Tapped!");
-        }
-
         private async void ToNormalButton_Click(object sender, RoutedEventArgs e)
         {
             CommBar.Visibility = Visibility.Visible;
@@ -88,11 +83,6 @@ namespace AlwaysOnTop
 
             // https://blogs.msdn.microsoft.com/universal-windows-app-model/2017/02/11/compactoverlay-mode-aka-picture-in-picture/
             bool modeSwitched = await ApplicationView.GetForCurrentView().TryEnterViewModeAsync(ApplicationViewMode.Default);
-        }
-
-        private void BrowserWindow_PointerPressed(object sender, PointerRoutedEventArgs e)
-        {
-            Debug.WriteLine("Tapped!");
         }
 
         private void BrowserWindow_NavigationStarting(WebView sender, WebViewNavigationStartingEventArgs args)
