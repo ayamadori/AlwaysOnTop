@@ -5,6 +5,7 @@ https://www.microsoft.com/store/apps/9p37ft08rnxm
 
 ## Feature
 Share target to receive the website URL
+Launch app by alwaysontop://q={Website URL}
 
 ## Test
 Tested on Windows 10 Version 1703
@@ -14,5 +15,5 @@ GNU GENERAL PUBLIC LICENSE Version 3
 http://www.gnu.org/licenses/gpl-3.0.html
 
 ## Version History
-- Version 1.0.0 (2017/08/23)
+- Version 1.0.0 (2017/08/25)
   * Initial release
