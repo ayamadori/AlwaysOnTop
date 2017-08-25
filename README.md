@@ -4,8 +4,8 @@ Set the website to Always-on-Top (aka Picture-in-Picture, CompactOverlay, Mini V
 https://www.microsoft.com/store/apps/9p37ft08rnxm
 
 ## Feature
-Share target to receive the website URL
-Launch app by alwaysontop://q={Website URL}
+- Share target to receive the website URL
+- Launch app by alwaysontop://q={Website URL}
 
 ## Test
 Tested on Windows 10 Version 1703
