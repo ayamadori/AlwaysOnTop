@@ -1,20 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
+using Windows.ApplicationModel.Core;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 namespace AlwaysOnTop
@@ -39,7 +30,7 @@ namespace AlwaysOnTop
         /// アプリケーションが特定のファイルを開くために起動されたときなどに使用されます。
         /// </summary>
         /// <param name="e">起動の要求とプロセスの詳細を表示します。</param>
-        protected override void OnLaunched(LaunchActivatedEventArgs e)
+        protected override async void OnLaunched(LaunchActivatedEventArgs e)
         {
             Frame rootFrame = Window.Current.Content as Frame;
 
@@ -59,6 +50,26 @@ namespace AlwaysOnTop
 
                 // フレームを現在のウィンドウに配置します
                 Window.Current.Content = rootFrame;
+            }
+            else
+            {
+                // Show multiple views
+                // https://docs.microsoft.com/en-us/windows/uwp/design/layout/show-multiple-views
+                CoreApplicationView newView = CoreApplication.CreateNewView();
+                int newViewId = 0;
+                await newView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                {
+                    Frame frame = new Frame();
+                    frame.Navigate(typeof(MainPage), null);
+                    Window.Current.Content = frame;
+                    // You have to activate the window in order to show it later.
+                    Window.Current.Activate();
+
+                    newViewId = ApplicationView.GetForCurrentView().Id;
+                });
+                bool viewShown = await ApplicationViewSwitcher.TryShowAsStandaloneAsync(newViewId);
+
+                return;
             }
 
             if (e.PrelaunchActivated == false)
@@ -145,7 +156,7 @@ namespace AlwaysOnTop
         /// <summary>
         // Handle protocol activations.
         /// </summary>
-        protected override void OnActivated(IActivatedEventArgs e)
+        protected override async void OnActivated(IActivatedEventArgs e)
         {
             if (e.Kind == ActivationKind.Protocol)
             {
@@ -169,6 +180,26 @@ namespace AlwaysOnTop
 
                     // フレームを現在のウィンドウに配置します
                     Window.Current.Content = rootFrame;
+                }
+                else
+                {
+                    // Show multiple views
+                    // https://docs.microsoft.com/en-us/windows/uwp/design/layout/show-multiple-views
+                    CoreApplicationView newView = CoreApplication.CreateNewView();
+                    int newViewId = 0;
+                    await newView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                    {
+                        Frame frame = new Frame();
+                        frame.Navigate(typeof(MainPage), args.Uri);
+                        Window.Current.Content = frame;
+                        // You have to activate the window in order to show it later.
+                        Window.Current.Activate();
+
+                        newViewId = ApplicationView.GetForCurrentView().Id;
+                    });
+                    bool viewShown = await ApplicationViewSwitcher.TryShowAsStandaloneAsync(newViewId);
+
+                    return;
                 }
 
                 if (rootFrame.Content == null)
