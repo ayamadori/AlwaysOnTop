@@ -48,7 +48,7 @@ namespace AlwaysOnTop
 
             // https://blogs.msdn.microsoft.com/universal-windows-app-model/2017/02/11/compactoverlay-mode-aka-picture-in-picture/
             ViewModePreferences compactOptions = ViewModePreferences.CreateDefault(ApplicationViewMode.CompactOverlay);
-            compactOptions.CustomSize = new Windows.Foundation.Size(480, 302); // 302=480*(9/16)+32(TitleBar) 
+            compactOptions.CustomSize = new Windows.Foundation.Size(480, 302); // 302=480*(9/16)+32(TitleBar)
             bool modeSwitched = await ApplicationView.GetForCurrentView().TryEnterViewModeAsync(ApplicationViewMode.CompactOverlay, compactOptions);
         }
 
