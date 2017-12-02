@@ -43,6 +43,7 @@
                 </Grid>
             </CommandBar.Content>
             <AppBarButton x:Name="RefreshButton" Label="Refresh" Icon="Refresh" Click="RefreshButton_Click"/>
+            <AppBarToggleButton x:Name="MobileViewButton" Label="Mobile View" Icon="CellPhone" Click="MobileViewButton_Click"/>
             <AppBarButton x:Name="AOTButton" Label="Always on Top" Click="AOTButton_Click">
                 <AppBarButton.Content>
                     <!--https://stackoverflow.com/questions/45692232/w10-uwp-compactoverlay-button-icon-->
@@ -52,7 +53,6 @@
                     </Grid>
                 </AppBarButton.Content>
             </AppBarButton>
-            <AppBarToggleButton x:Name="MobileViewButton" Label="Mobile View" Icon="CellPhone" Click="MobileViewButton_Click"/>
             <CommandBar.SecondaryCommands>
                 <AppBarButton x:Name="AboutButton" Label="About" Icon="Help" Click="AboutButton_Click"/>
             </CommandBar.SecondaryCommands>

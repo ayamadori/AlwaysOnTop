@@ -38,7 +38,8 @@ namespace AlwaysOnTop
                 string param = ((Uri)e.Parameter).AbsoluteUri;
                 string uri = Uri.UnescapeDataString(param.Split('=')[1]);
                 Debug.WriteLine("Uri2: " + uri);
-                BrowserWindow.Navigate(new Uri(uri));
+                AddressBox.Text = uri;
+                OpenBrowser();
             }
         }
 
@@ -55,18 +56,14 @@ namespace AlwaysOnTop
 
         private void RefreshButton_Click(object sender, RoutedEventArgs e)
         {
-            string address = AddressBox.Text;
-            if (address.StartsWith("http"))
-                BrowserWindow.Navigate(new Uri(address));
+            OpenBrowser();
         }
 
         private void AddressBox_KeyDown(object sender, KeyRoutedEventArgs e)
         {
             if (e.Key == Windows.System.VirtualKey.Enter)
             {
-                string address = AddressBox.Text;
-                if (address.StartsWith("http"))
-                    BrowserWindow.Navigate(new Uri(address));
+                OpenBrowser();
             }
         }
 
@@ -103,8 +100,11 @@ namespace AlwaysOnTop
 
         private void MobileViewButton_Click(object sender, RoutedEventArgs e)
         {
-            // https://qiita.com/niwasawa/items/44aaae7a1f942b62b9c1
-            string ua = "Mozilla/5.0 (iPhone; CPU iPhone OS 11_0 like Mac OS X) AppleWebKit/604.1.38 (KHTML, like Gecko) Version/11.0 Mobile/15A372 Safari/604.1";
+            OpenBrowser();
+        }
+
+        private void OpenBrowser()
+        {
             string address = AddressBox.Text;
             if (address.StartsWith("http"))
             {
@@ -113,6 +113,8 @@ namespace AlwaysOnTop
                 {
                     // Change UserAgent and refresh
                     HttpRequestMessage requestMsg = new HttpRequestMessage(HttpMethod.Get, uri);
+                    // https://qiita.com/niwasawa/items/44aaae7a1f942b62b9c1
+                    string ua = "Mozilla/5.0 (iPhone; CPU iPhone OS 11_0 like Mac OS X) AppleWebKit/604.1.38 (KHTML, like Gecko) Version/11.0 Mobile/15A372 Safari/604.1";
                     requestMsg.Headers.Add("User-Agent", ua);
                     BrowserWindow.NavigateWithHttpRequestMessage(requestMsg);
                 }
