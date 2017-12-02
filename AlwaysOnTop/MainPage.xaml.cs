@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Diagnostics;
 using Windows.ApplicationModel.Core;
-using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
+using Windows.Web.Http;
 
 // 空白ページの項目テンプレートについては、https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x411 を参照してください
 
@@ -99,6 +99,28 @@ namespace AlwaysOnTop
             LoadingIndicator.Visibility = Visibility.Collapsed;
             RefreshButton.Visibility = Visibility.Visible;
             TitleBlock.Text = BrowserWindow.DocumentTitle;
+        }
+
+        private void MobileViewButton_Click(object sender, RoutedEventArgs e)
+        {
+            // https://qiita.com/niwasawa/items/44aaae7a1f942b62b9c1
+            string ua = "Mozilla/5.0 (iPhone; CPU iPhone OS 11_0 like Mac OS X) AppleWebKit/604.1.38 (KHTML, like Gecko) Version/11.0 Mobile/15A372 Safari/604.1";
+            string address = AddressBox.Text;
+            if (address.StartsWith("http"))
+            {
+                Uri uri = new Uri(address);
+                if (MobileViewButton.IsChecked == true)
+                {
+                    // Change UserAgent and refresh
+                    HttpRequestMessage requestMsg = new HttpRequestMessage(HttpMethod.Get, uri);
+                    requestMsg.Headers.Add("User-Agent", ua);
+                    BrowserWindow.NavigateWithHttpRequestMessage(requestMsg);
+                }
+                else
+                {
+                    BrowserWindow.Navigate(new Uri(address));
+                }
+            }
         }
     }
 }

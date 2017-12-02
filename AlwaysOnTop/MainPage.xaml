@@ -31,7 +31,7 @@
         </Grid>
 
         <!--http://blog.mzikmund.com/2017/01/aligning-uwp-commandbar-content-after-anniversary-update/-->
-        <CommandBar x:Name="CommBar" Grid.Row="1" IsDynamicOverflowEnabled="False" HorizontalContentAlignment="Stretch" OverflowButtonVisibility="Collapsed">
+        <CommandBar x:Name="CommBar" Grid.Row="1" IsDynamicOverflowEnabled="False" HorizontalContentAlignment="Stretch">
             <CommandBar.Content>
                 <Grid HorizontalAlignment="Stretch">
                     <Grid.ColumnDefinitions>
@@ -42,8 +42,8 @@
                     <ProgressRing Grid.Column="1" x:Name="LoadingIndicator" IsActive="False" Width="68" Margin="0,8" Visibility="Collapsed"/>
                 </Grid>
             </CommandBar.Content>
-            <AppBarButton x:Name="RefreshButton" Grid.Column="0" Label="Refresh" Icon="Refresh" Click="RefreshButton_Click"/>
-            <AppBarButton x:Name="AOTButton" Grid.Column="2" Label="Always on Top" Click="AOTButton_Click">
+            <AppBarButton x:Name="RefreshButton" Label="Refresh" Icon="Refresh" Click="RefreshButton_Click"/>
+            <AppBarButton x:Name="AOTButton" Label="Always on Top" Click="AOTButton_Click">
                 <AppBarButton.Content>
                     <!--https://stackoverflow.com/questions/45692232/w10-uwp-compactoverlay-button-icon-->
                     <Grid>
@@ -52,7 +52,10 @@
                     </Grid>
                 </AppBarButton.Content>
             </AppBarButton>
-            <AppBarButton x:Name="AboutButton" Label="About" Icon="Help" Click="AboutButton_Click"/>
+            <AppBarToggleButton x:Name="MobileViewButton" Label="Mobile View" Icon="CellPhone" Click="MobileViewButton_Click"/>
+            <CommandBar.SecondaryCommands>
+                <AppBarButton x:Name="AboutButton" Label="About" Icon="Help" Click="AboutButton_Click"/>
+            </CommandBar.SecondaryCommands>
         </CommandBar>
         <WebView x:Name="BrowserWindow" Grid.Row="2" Margin="0" NavigationStarting="BrowserWindow_NavigationStarting" NavigationCompleted="BrowserWindow_NavigationCompleted"/>
     </Grid>
