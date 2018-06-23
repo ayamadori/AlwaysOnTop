@@ -13,8 +13,7 @@
         <ScrollViewer>
             <StackPanel Margin="0,12">
                 <TextBlock Text="Always on Top&#xA;Version 1.2.0&#xA;&#xA;Copyright (c) Ayamadori" TextWrapping="Wrap"/>
-                <HyperlinkButton Content="https://sites.google.com/site/ayamadori/" NavigateUri="https://sites.google.com/site/ayamadori"/>
-                <HyperlinkButton Content="Twitter: @ayamadori" NavigateUri="https://twitter.com/ayamadori"/>
+                <HyperlinkButton Content="https://ayamadori.github.io/" NavigateUri="https://ayamadori.github.io/"/>
                 <HyperlinkButton Content="Privacy Policy" NavigateUri="https://github.com/ayamadori/AlwaysOnTop/blob/master/PrivacyPolicy.md"/>
                 <Button Content="Rate this app" Margin="0,12" Click="RateButton_Click"/>
             </StackPanel>

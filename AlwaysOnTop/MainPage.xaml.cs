@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using Windows.ApplicationModel.Core;
+using Windows.UI.Popups;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -24,12 +25,10 @@ namespace AlwaysOnTop
             // https://www.eternalcoding.com/?p=1952
             CoreApplicationViewTitleBar coreTitleBar = CoreApplication.GetCurrentView().TitleBar;
             coreTitleBar.ExtendViewIntoTitleBar = true;
-            Window.Current.SetTitleBar(MainTitleBar);
-
-            //coreTitleBar.ExtendViewIntoTitleBar = false;
+            Window.Current.SetTitleBar(TitleBar);
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
 
@@ -40,18 +39,33 @@ namespace AlwaysOnTop
                 Debug.WriteLine("Uri2: " + uri);
                 AddressBox.Text = uri;
                 OpenBrowser();
+
+                // Change to CompactOverlay mode automatically
+                AOTButton.IsChecked = true;
+                var applicationView = ApplicationView.GetForCurrentView();
+                ViewModePreferences compactOptions = ViewModePreferences.CreateDefault(ApplicationViewMode.CompactOverlay);
+                compactOptions.CustomSize = new Windows.Foundation.Size(500, 500); // Max size?
+                bool modeSwitched = await applicationView.TryEnterViewModeAsync(ApplicationViewMode.CompactOverlay, compactOptions);
             }
         }
 
         private async void AOTButton_Click(object sender, RoutedEventArgs e)
         {
-            CommBar.Visibility = Visibility.Collapsed;
-            ToNormalButton.Visibility = Visibility.Visible;
-
             // https://blogs.msdn.microsoft.com/universal-windows-app-model/2017/02/11/compactoverlay-mode-aka-picture-in-picture/
-            ViewModePreferences compactOptions = ViewModePreferences.CreateDefault(ApplicationViewMode.CompactOverlay);
-            compactOptions.CustomSize = new Windows.Foundation.Size(480, 302); // 302=480*(9/16)+32(TitleBar)
-            bool modeSwitched = await ApplicationView.GetForCurrentView().TryEnterViewModeAsync(ApplicationViewMode.CompactOverlay, compactOptions);
+
+            bool modeSwitched;
+            var applicationView = ApplicationView.GetForCurrentView();
+
+            if (AOTButton.IsChecked == true)
+            {
+                ViewModePreferences compactOptions = ViewModePreferences.CreateDefault(ApplicationViewMode.CompactOverlay);
+                compactOptions.CustomSize = new Windows.Foundation.Size(500, 500); // Max size?
+                modeSwitched = await applicationView.TryEnterViewModeAsync(ApplicationViewMode.CompactOverlay, compactOptions);
+            }
+            else
+            {
+                modeSwitched = await applicationView.TryEnterViewModeAsync(ApplicationViewMode.Default);
+            }
         }
 
         private void RefreshButton_Click(object sender, RoutedEventArgs e)
@@ -74,15 +88,6 @@ namespace AlwaysOnTop
             await dlg.ShowAsync();
         }
 
-        private async void ToNormalButton_Click(object sender, RoutedEventArgs e)
-        {
-            CommBar.Visibility = Visibility.Visible;
-            ToNormalButton.Visibility = Visibility.Collapsed;
-
-            // https://blogs.msdn.microsoft.com/universal-windows-app-model/2017/02/11/compactoverlay-mode-aka-picture-in-picture/
-            bool modeSwitched = await ApplicationView.GetForCurrentView().TryEnterViewModeAsync(ApplicationViewMode.Default);
-        }
-
         private void BrowserWindow_NavigationStarting(WebView sender, WebViewNavigationStartingEventArgs args)
         {
             LoadingIndicator.IsActive = true;
@@ -98,15 +103,50 @@ namespace AlwaysOnTop
             TitleBlock.Text = BrowserWindow.DocumentTitle;
         }
 
+        private async void BrowserWindow_NavigationFailed(object sender, WebViewNavigationFailedEventArgs e)
+        {
+            LoadingIndicator.IsActive = false;
+            LoadingIndicator.Visibility = Visibility.Collapsed;
+            RefreshButton.Visibility = Visibility.Visible;
+            var dlg = new MessageDialog(e.WebErrorStatus.ToString(), "Navigation Failed");
+            await dlg.ShowAsync();
+        }
+
+        private void BrowserWindow_ContainsFullScreenElementChanged(WebView sender, object args)
+        {
+            var applicationView = ApplicationView.GetForCurrentView();
+
+            if (sender.ContainsFullScreenElement)
+            {
+                TitleBar.Visibility = Visibility.Collapsed;
+                CommBar.Visibility = Visibility.Collapsed;
+
+                if (applicationView.ViewMode == ApplicationViewMode.Default)
+                {
+                    applicationView.TryEnterFullScreenMode();
+                }
+            }
+            else
+            {
+                TitleBar.Visibility = Visibility.Visible;
+                CommBar.Visibility = Visibility.Visible;
+
+                if (applicationView.IsFullScreenMode)
+                {
+                    applicationView.ExitFullScreenMode();
+                }
+            }
+        }
+
         private void MobileViewButton_Click(object sender, RoutedEventArgs e)
         {
             OpenBrowser();
         }
 
-        private void OpenBrowser()
+        private async void OpenBrowser()
         {
             string address = AddressBox.Text;
-            if (address.StartsWith("http"))
+            if (address.StartsWith("http://") || address.StartsWith("https://"))
             {
                 Uri uri = new Uri(address);
                 if (MobileViewButton.IsChecked == true)
@@ -122,6 +162,11 @@ namespace AlwaysOnTop
                 {
                     BrowserWindow.Navigate(new Uri(address));
                 }
+            }
+            else
+            {
+                var dlg = new MessageDialog("NOTE: Web address must start with http(s)://", "Invalid web address");
+                await dlg.ShowAsync();
             }
         }
     }

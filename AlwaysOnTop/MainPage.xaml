@@ -16,18 +16,7 @@
 
         <!--https://www.eternalcoding.com/?p=1952-->
         <Grid Grid.Row="0" x:Name="TitleBar" Height="32">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Button x:Name="ToNormalButton" Grid.Column="0" Width="48" Height="32" Click="ToNormalButton_Click" Visibility="Collapsed" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-                <Button.Content>
-                    <SymbolIcon Symbol="Back" Height="10" Width="14"/>
-                </Button.Content>
-            </Button>
-            <Grid Grid.Column="1" x:Name="MainTitleBar" Background="Transparent">
-                <TextBlock x:Name="TitleBlock" Text="Always on Top" VerticalAlignment="Center" FontSize="12" Foreground="{ThemeResource ApplicationForegroundThemeBrush}" Margin="10,0"/>
-            </Grid>
+            <TextBlock x:Name="TitleBlock" Text="Always on Top" VerticalAlignment="Center" FontSize="12" Foreground="{ThemeResource ApplicationForegroundThemeBrush}" Margin="10,0"/>
         </Grid>
 
         <!--http://blog.mzikmund.com/2017/01/aligning-uwp-commandbar-content-after-anniversary-update/-->
@@ -43,20 +32,16 @@
                 </Grid>
             </CommandBar.Content>
             <AppBarButton x:Name="RefreshButton" Label="Refresh" Icon="Refresh" Click="RefreshButton_Click"/>
-            <AppBarToggleButton x:Name="MobileViewButton" Label="Mobile View" Icon="CellPhone" Click="MobileViewButton_Click"/>
-            <AppBarButton x:Name="AOTButton" Label="Always on Top" Click="AOTButton_Click">
-                <AppBarButton.Content>
-                    <!--https://stackoverflow.com/questions/45692232/w10-uwp-compactoverlay-button-icon-->
-                    <Grid>
-                        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Segoe MDL2 Assets" FontSize="30">&#xE7FB;</TextBlock>
-                        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12,4,0,0" FontFamily="Segoe MDL2 Assets" FontSize="12">&#xEB9F;</TextBlock>
-                    </Grid>
-                </AppBarButton.Content>
-            </AppBarButton>
+            <AppBarToggleButton x:Name="AOTButton" Label="Always on Top" Click="AOTButton_Click">
+                <AppBarToggleButton.Icon>
+                    <FontIcon Glyph="&#xE8B9;"/>
+                </AppBarToggleButton.Icon>
+            </AppBarToggleButton>
             <CommandBar.SecondaryCommands>
+                <AppBarToggleButton x:Name="MobileViewButton" Label="Mobile View" Icon="CellPhone" Click="MobileViewButton_Click"/>
                 <AppBarButton x:Name="AboutButton" Label="About" Icon="Help" Click="AboutButton_Click"/>
             </CommandBar.SecondaryCommands>
         </CommandBar>
-        <WebView x:Name="BrowserWindow" Grid.Row="2" Margin="0" NavigationStarting="BrowserWindow_NavigationStarting" NavigationCompleted="BrowserWindow_NavigationCompleted"/>
+        <WebView x:Name="BrowserWindow" Grid.Row="2" Margin="0" NavigationStarting="BrowserWindow_NavigationStarting" NavigationCompleted="BrowserWindow_NavigationCompleted" NavigationFailed="BrowserWindow_NavigationFailed" ContainsFullScreenElementChanged="BrowserWindow_ContainsFullScreenElementChanged"/>
     </Grid>
 </Page>
