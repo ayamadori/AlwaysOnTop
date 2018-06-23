@@ -36,7 +36,6 @@ namespace AlwaysOnTop
             {
                 string param = ((Uri)e.Parameter).AbsoluteUri;
                 string uri = Uri.UnescapeDataString(param.Split('=')[1]);
-                Debug.WriteLine("Uri2: " + uri);
                 AddressBox.Text = uri;
                 OpenBrowser();
 
@@ -44,7 +43,7 @@ namespace AlwaysOnTop
                 AOTButton.IsChecked = true;
                 var applicationView = ApplicationView.GetForCurrentView();
                 ViewModePreferences compactOptions = ViewModePreferences.CreateDefault(ApplicationViewMode.CompactOverlay);
-                compactOptions.CustomSize = new Windows.Foundation.Size(500, 500); // Max size?
+                compactOptions.CustomSize = new Windows.Foundation.Size(500, 500); // Max size
                 bool modeSwitched = await applicationView.TryEnterViewModeAsync(ApplicationViewMode.CompactOverlay, compactOptions);
             }
         }
@@ -59,7 +58,7 @@ namespace AlwaysOnTop
             if (AOTButton.IsChecked == true)
             {
                 ViewModePreferences compactOptions = ViewModePreferences.CreateDefault(ApplicationViewMode.CompactOverlay);
-                compactOptions.CustomSize = new Windows.Foundation.Size(500, 500); // Max size?
+                compactOptions.CustomSize = new Windows.Foundation.Size(500, 500); // Max size
                 modeSwitched = await applicationView.TryEnterViewModeAsync(ApplicationViewMode.CompactOverlay, compactOptions);
             }
             else
@@ -124,6 +123,11 @@ namespace AlwaysOnTop
                 if (applicationView.ViewMode == ApplicationViewMode.Default)
                 {
                     applicationView.TryEnterFullScreenMode();
+                }
+                else if(applicationView.ViewMode == ApplicationViewMode.CompactOverlay)
+                {
+                    // 281 = 500 * (9/16)
+                    bool success = applicationView.TryResizeView(new Windows.Foundation.Size(500, 281));
                 }
             }
             else
