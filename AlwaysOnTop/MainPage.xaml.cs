@@ -139,6 +139,10 @@ namespace AlwaysOnTop
                 {
                     applicationView.ExitFullScreenMode();
                 }
+                else if (applicationView.ViewMode == ApplicationViewMode.CompactOverlay)
+                {
+                    bool success = applicationView.TryResizeView(new Windows.Foundation.Size(500, 500)); // Max size
+                }
             }
         }
 
