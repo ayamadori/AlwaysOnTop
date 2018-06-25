@@ -15,7 +15,7 @@ http://www.gnu.org/licenses/gpl-3.0.html
 
 ## Version History
 - Version 1.3.0 (2018/06/26)
-  * Support fullscreen content(Auto-hide titlebar, Windows resizing)
+  * Support fullscreen content(Auto-hide titlebar, Window resizing)
   * Always on Top automatically via Share menu
   * Some error handling
   * Update library
