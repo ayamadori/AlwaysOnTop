@@ -7,7 +7,7 @@ https://www.microsoft.com/store/apps/9p37ft08rnxm
 Share target to receive the website URL
 
 ## Test
-Tested on Windows 10 Version 1709
+Tested on Windows 10 Version 1803
 
 ## License
 GNU GENERAL PUBLIC LICENSE Version 3  
