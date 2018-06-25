@@ -40,11 +40,15 @@ namespace AlwaysOnTop
                 OpenBrowser();
 
                 // Change to CompactOverlay mode automatically
-                AOTButton.IsChecked = true;
                 var applicationView = ApplicationView.GetForCurrentView();
                 ViewModePreferences compactOptions = ViewModePreferences.CreateDefault(ApplicationViewMode.CompactOverlay);
                 compactOptions.CustomSize = new Windows.Foundation.Size(500, 500); // Max size
                 bool modeSwitched = await applicationView.TryEnterViewModeAsync(ApplicationViewMode.CompactOverlay, compactOptions);
+                if (modeSwitched)
+                {
+                    // modeSwitched is sometimes false. Why?
+                    AOTButton.IsChecked = true;
+                }
             }
         }
 
