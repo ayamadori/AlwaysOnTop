@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
 using Windows.UI.Popups;
 using Windows.UI.ViewManagement;
@@ -34,9 +35,25 @@ namespace AlwaysOnTop
 
             if (e.Parameter is Uri) // Protocol launch
             {
-                string param = ((Uri)e.Parameter).AbsoluteUri;
-                string uri = Uri.UnescapeDataString(param.Split('=')[1]);
-                AddressBox.Text = uri;
+                string param = ((Uri)e.Parameter).AbsoluteUri.Split('?')[1];
+
+                string[] protoParams = param.Split('&'); // Split the paramters into an array
+
+                for (int i = 0; i < protoParams.Length; i++)
+                {
+                    if(protoParams[i].Contains("videoIndex="))
+                    {
+                         int videoIndex = Int32.Parse(protoParams[i].Split('=')[1]);
+                         FullscreenVideoByIndex(videoIndex);
+                    }
+                    if (protoParams[i].Contains("url="))
+                    {
+                        string uri = Uri.UnescapeDataString(protoParams[i].Split('=')[1]);
+                        AddressBox.Text = uri;
+                    }
+
+                }
+
                 OpenBrowser();
 
                 // Change to CompactOverlay mode automatically
@@ -153,6 +170,50 @@ namespace AlwaysOnTop
         private void MobileViewButton_Click(object sender, RoutedEventArgs e)
         {
             OpenBrowser();
+        }
+
+        private void FullscreenVideoByIndex(int videoIndex)
+        {
+            BrowserWindow.DOMContentLoaded += async (s, e) =>
+            {//alwaysontop:?url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DyNHUIM0ZfTE%0A&videoIndex=0
+                CommBar.Visibility = Visibility.Collapsed;
+
+
+                // Ideally, this will eventually hide EVERYTHING except the video, then recreate a simple video player on top of the existing video
+
+                // Grab the given video and style it to make it look fullscreen (full screen API does not always work)
+                await BrowserWindow.InvokeScriptAsync("eval", new string[] { @"document.querySelectorAll('video')[" + videoIndex + "].style['position'] = 'fixed'; " });
+                await BrowserWindow.InvokeScriptAsync("eval", new string[] { @"document.querySelectorAll('video')[" + videoIndex + "].style['top'] = '0';" });
+                await BrowserWindow.InvokeScriptAsync("eval", new string[] { @"document.querySelectorAll('video')[" + videoIndex + "].style['left'] = '0';" });
+                await BrowserWindow.InvokeScriptAsync("eval", new string[] { @"document.querySelectorAll('video')[" + videoIndex + "].style['min-height'] = '99vh';" });
+                await BrowserWindow.InvokeScriptAsync("eval", new string[] { @"document.querySelectorAll('video')[" + videoIndex + "].style['min-width'] = '99vw';" });
+                await BrowserWindow.InvokeScriptAsync("eval", new string[] { @"document.querySelectorAll('video')[" + videoIndex + "].style['z-index'] = '9999999';" });
+
+                await BrowserWindow.InvokeScriptAsync("eval", new string[] { @"document.querySelectorAll('*').forEach(element=>{element.style['margin'] = '0px';})" });
+                await BrowserWindow.InvokeScriptAsync("eval", new string[] { @"document.querySelectorAll('*').forEach(element=>{element.style['padding'] = '0px';})" });
+
+                // Try using the fullscreen API
+                await BrowserWindow.InvokeScriptAsync("eval", new string[] { @"if(document.querySelectorAll('video')[" + videoIndex + "].requestFullscreen) document.querySelectorAll('video')[" + videoIndex + "].requestFullscreen();" });
+
+                // Play the video
+                await BrowserWindow.InvokeScriptAsync("eval", new string[] { @"document.querySelectorAll('video')[" + videoIndex + "].play();" });
+
+
+                int height = Int32.Parse(await BrowserWindow.InvokeScriptAsync("eval", new string[] { @"document.querySelectorAll('video')[" + videoIndex + "].clientHeight.toString()" }));
+                int width = Int32.Parse(await BrowserWindow.InvokeScriptAsync("eval", new string[] { @"document.querySelectorAll('video')[" + videoIndex + "].clientWidth.toString()" }));
+
+                double ratio = 0.5625;
+                if (width != 0)
+                {
+                    ratio = height / width;
+                }
+
+                // Switch to Compact overlay and set the size 
+                var applicationView = ApplicationView.GetForCurrentView();
+                ViewModePreferences compactOptions = ViewModePreferences.CreateDefault(ApplicationViewMode.CompactOverlay);
+                compactOptions.CustomSize = new Windows.Foundation.Size(500, 500 * ratio);
+                await applicationView.TryEnterViewModeAsync(ApplicationViewMode.CompactOverlay, compactOptions);
+            };
         }
 
         private async void OpenBrowser()
