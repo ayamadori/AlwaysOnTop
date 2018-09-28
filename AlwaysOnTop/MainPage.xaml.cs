@@ -175,44 +175,51 @@ namespace AlwaysOnTop
         private void FullscreenVideoByIndex(int videoIndex)
         {
             BrowserWindow.DOMContentLoaded += async (s, e) =>
-            {//alwaysontop:?url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DyNHUIM0ZfTE%0A&videoIndex=0
-                CommBar.Visibility = Visibility.Collapsed;
-
+            {//alwaysontop:?url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DyNHUIM0ZfTE%0A&videoIndex=0
 
                 // Ideally, this will eventually hide EVERYTHING except the video, then recreate a simple video player on top of the existing video
+                CommBar.Visibility = Visibility.Collapsed;
+                
+
+                // Switch to Compact overlay and set the size 
+                var applicationView = ApplicationView.GetForCurrentView();
+                ViewModePreferences compactOptions = ViewModePreferences.CreateDefault(ApplicationViewMode.CompactOverlay);
+                compactOptions.CustomSize = new Windows.Foundation.Size(500, 500 * 0.5625);
+                await applicationView.TryEnterViewModeAsync(ApplicationViewMode.CompactOverlay, compactOptions);
+
+
+                // Hide every element
+                await BrowserWindow.InvokeScriptAsync("eval", new string[] { @"document.querySelectorAll('*').forEach(element=>{element.style['margin'] = '0px';})" });
+                await BrowserWindow.InvokeScriptAsync("eval", new string[] { @"document.querySelectorAll('*').forEach(element=>{element.style['padding'] = '0px';})" });
+                await BrowserWindow.InvokeScriptAsync("eval", new string[] { @"document.querySelectorAll('*').forEach(element=>{element.style['position'] = 'absolute';})" });
+                await BrowserWindow.InvokeScriptAsync("eval", new string[] { @"document.querySelectorAll('*').forEach(element=>{element.style['z-index'] = '-99';})" });
+
 
                 // Grab the given video and style it to make it look fullscreen (full screen API does not always work)
                 await BrowserWindow.InvokeScriptAsync("eval", new string[] { @"document.querySelectorAll('video')[" + videoIndex + "].style['position'] = 'fixed'; " });
+                await BrowserWindow.InvokeScriptAsync("eval", new string[] { @"document.querySelectorAll('video')[" + videoIndex + "].style['display'] = 'block'; " });
                 await BrowserWindow.InvokeScriptAsync("eval", new string[] { @"document.querySelectorAll('video')[" + videoIndex + "].style['top'] = '0';" });
                 await BrowserWindow.InvokeScriptAsync("eval", new string[] { @"document.querySelectorAll('video')[" + videoIndex + "].style['left'] = '0';" });
-                await BrowserWindow.InvokeScriptAsync("eval", new string[] { @"document.querySelectorAll('video')[" + videoIndex + "].style['min-height'] = '99vh';" });
-                await BrowserWindow.InvokeScriptAsync("eval", new string[] { @"document.querySelectorAll('video')[" + videoIndex + "].style['min-width'] = '99vw';" });
-                await BrowserWindow.InvokeScriptAsync("eval", new string[] { @"document.querySelectorAll('video')[" + videoIndex + "].style['z-index'] = '9999999';" });
+                await BrowserWindow.InvokeScriptAsync("eval", new string[] { @"document.querySelectorAll('video')[" + videoIndex + "].style['z-index'] = '999';" });
 
-                await BrowserWindow.InvokeScriptAsync("eval", new string[] { @"document.querySelectorAll('*').forEach(element=>{element.style['margin'] = '0px';})" });
-                await BrowserWindow.InvokeScriptAsync("eval", new string[] { @"document.querySelectorAll('*').forEach(element=>{element.style['padding'] = '0px';})" });
+                // Why doesn't it care about the viewport size when applying CSS?
+
+                // Set min and max height of video, lock it to filling the window
+                await BrowserWindow.InvokeScriptAsync("eval", new string[] { @"document.querySelectorAll('video')[" + videoIndex + "].style['max-width'] = '99vw !important';" });
+                await BrowserWindow.InvokeScriptAsync("eval", new string[] { @"document.querySelectorAll('video')[" + videoIndex + "].style['max-height'] = '99vh !important';" });
+                await BrowserWindow.InvokeScriptAsync("eval", new string[] { @"document.querySelectorAll('video')[" + videoIndex + "].style['min-height'] = '99vh !important';" });
+                await BrowserWindow.InvokeScriptAsync("eval", new string[] { @"document.querySelectorAll('video')[" + videoIndex + "].style['min-width'] = '99vw !important';" });
+
+
+                await BrowserWindow.InvokeScriptAsync("eval", new string[] { @"document.querySelectorAll('video')[" + videoIndex + "].style['overflow'] = 'hidden';" });
+
 
                 // Try using the fullscreen API
                 await BrowserWindow.InvokeScriptAsync("eval", new string[] { @"if(document.querySelectorAll('video')[" + videoIndex + "].requestFullscreen) document.querySelectorAll('video')[" + videoIndex + "].requestFullscreen();" });
 
                 // Play the video
                 await BrowserWindow.InvokeScriptAsync("eval", new string[] { @"document.querySelectorAll('video')[" + videoIndex + "].play();" });
-
-
-                int height = Int32.Parse(await BrowserWindow.InvokeScriptAsync("eval", new string[] { @"document.querySelectorAll('video')[" + videoIndex + "].clientHeight.toString()" }));
-                int width = Int32.Parse(await BrowserWindow.InvokeScriptAsync("eval", new string[] { @"document.querySelectorAll('video')[" + videoIndex + "].clientWidth.toString()" }));
-
-                double ratio = 0.5625;
-                if (width != 0)
-                {
-                    ratio = height / width;
-                }
-
-                // Switch to Compact overlay and set the size 
-                var applicationView = ApplicationView.GetForCurrentView();
-                ViewModePreferences compactOptions = ViewModePreferences.CreateDefault(ApplicationViewMode.CompactOverlay);
-                compactOptions.CustomSize = new Windows.Foundation.Size(500, 500 * ratio);
-                await applicationView.TryEnterViewModeAsync(ApplicationViewMode.CompactOverlay, compactOptions);
+                
             };
         }
 
