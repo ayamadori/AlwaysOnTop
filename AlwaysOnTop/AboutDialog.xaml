@@ -12,9 +12,9 @@
     <Grid>
         <ScrollViewer>
             <StackPanel Margin="0,12">
-                <TextBlock Text="Always on Top&#xA;Version 1.3.0&#xA;&#xA;Copyright (c) Ayamadori" TextWrapping="Wrap"/>
+                <TextBlock Text="Always on Top&#xA;Version 1.3.1&#xA;&#xA;Copyright (c) Ayamadori" TextWrapping="Wrap"/>
                 <HyperlinkButton Content="https://ayamadori.github.io/" NavigateUri="https://ayamadori.github.io/"/>
-                <HyperlinkButton Content="Privacy Policy" NavigateUri="https://github.com/ayamadori/AlwaysOnTop/blob/master/PrivacyPolicy.md"/>
+                <HyperlinkButton Content="Privacy Policy" NavigateUri="https://ayamadori.github.io/AlwaysOnTop/PrivacyPolicy.html"/>
                 <Button Content="Rate this app" Margin="0,12" Click="RateButton_Click"/>
             </StackPanel>
         </ScrollViewer>

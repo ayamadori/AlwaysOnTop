@@ -15,8 +15,8 @@
         </Grid.RowDefinitions>
 
         <!--https://www.eternalcoding.com/?p=1952-->
-        <Grid Grid.Row="0" x:Name="TitleBar" Height="32">
-            <TextBlock x:Name="TitleBlock" Text="Always on Top" VerticalAlignment="Center" FontSize="12" Foreground="{ThemeResource ApplicationForegroundThemeBrush}" Margin="10,0"/>
+        <Grid Grid.Row="0" x:Name="TitleBar" Background="Transparent" Height="32">
+            <TextBlock x:Name="TitleBlock" Text="Always on Top" VerticalAlignment="Center" HorizontalAlignment="Stretch" FontSize="12" Foreground="{ThemeResource ApplicationForegroundThemeBrush}" Margin="10,0"/>
         </Grid>
 
         <!--http://blog.mzikmund.com/2017/01/aligning-uwp-commandbar-content-after-anniversary-update/-->
