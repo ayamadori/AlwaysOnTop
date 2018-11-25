@@ -15,6 +15,7 @@
         </Grid.RowDefinitions>
 
         <!--https://www.eternalcoding.com/?p=1952-->
+        <!--Background="Transparent" is needed to move window by using mouse-->
         <Grid Grid.Row="0" x:Name="TitleBar" Background="Transparent" Height="32">
             <TextBlock x:Name="TitleBlock" Text="Always on Top" VerticalAlignment="Center" HorizontalAlignment="Stretch" FontSize="12" Foreground="{ThemeResource ApplicationForegroundThemeBrush}" Margin="10,0"/>
         </Grid>
@@ -27,14 +28,14 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
-                    <TextBox Grid.Column="0" x:Name="AddressBox" Text="{x:Bind BrowserWindow.Source}" PlaceholderText="Enter web address" InputScope="Url" Margin="8,8" HorizontalAlignment="Stretch" KeyDown="AddressBox_KeyDown"/>
-                    <ProgressRing Grid.Column="1" x:Name="LoadingIndicator" IsActive="False" Width="68" Margin="0,8" Visibility="Collapsed"/>
+                    <TextBox Grid.Column="0" x:Name="AddressBox" Text="{x:Bind BrowserWindow.Source}" PlaceholderText="Enter web address" InputScope="Url" Margin="4" HorizontalAlignment="Stretch" KeyDown="AddressBox_KeyDown"/>
+                    <ProgressRing Grid.Column="1" x:Name="LoadingIndicator" IsActive="False" Width="68" Margin="0,4" Visibility="Collapsed"/>
                 </Grid>
             </CommandBar.Content>
             <AppBarButton x:Name="RefreshButton" Label="Refresh" Icon="Refresh" Click="RefreshButton_Click"/>
             <AppBarToggleButton x:Name="AOTButton" Label="Always on Top" Click="AOTButton_Click">
                 <AppBarToggleButton.Icon>
-                    <FontIcon Glyph="&#xE8B9;"/>
+                    <FontIcon Glyph="&#xF26E;"/>
                 </AppBarToggleButton.Icon>
             </AppBarToggleButton>
             <CommandBar.SecondaryCommands>

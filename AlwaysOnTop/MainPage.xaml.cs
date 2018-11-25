@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using Windows.ApplicationModel.Core;
 using Windows.UI.Popups;
 using Windows.UI.ViewManagement;
@@ -177,7 +176,7 @@ namespace AlwaysOnTop
             }
             else
             {
-                var dlg = new MessageDialog("NOTE: Web address must start with http(s)://", "Invalid web address");
+                var dlg = new MessageDialog("Web address must start with http(s)://", "Invalid web address");
                 await dlg.ShowAsync();
             }
         }
