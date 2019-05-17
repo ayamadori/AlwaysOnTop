@@ -34,9 +34,13 @@
             </CommandBar.Content>
             <AppBarButton x:Name="RefreshButton" Label="Refresh" Icon="Refresh" Click="RefreshButton_Click"/>
             <AppBarToggleButton x:Name="AOTButton" Label="Always on Top" Click="AOTButton_Click">
-                <AppBarToggleButton.Icon>
-                    <FontIcon Glyph="&#xF26E;"/>
-                </AppBarToggleButton.Icon>
+                <AppBarToggleButton.Content>
+                    <!--https://stackoverflow.com/questions/45692232/w10-uwp-compactoverlay-button-icon-->
+                    <Grid Margin="0,0,0,0">
+                        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,0,0" FontFamily="Segoe MDL2 Assets" FontSize="30">&#xE003;</TextBlock>
+                        <TextBlock HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,4,2" FontFamily="Segoe MDL2 Assets" FontSize="16">&#xEB9F;</TextBlock>
+                    </Grid>
+                </AppBarToggleButton.Content>
             </AppBarToggleButton>
             <CommandBar.SecondaryCommands>
                 <AppBarToggleButton x:Name="MobileViewButton" Label="Mobile View" Icon="CellPhone" Click="MobileViewButton_Click"/>
