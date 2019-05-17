@@ -46,7 +46,8 @@ namespace AlwaysOnTop
                 if (modeSwitched)
                 {
                     // modeSwitched is sometimes false. Why?
-                    AOTButton.IsChecked = true;
+                    AOTButton.Visibility = Visibility.Collapsed;
+                    BackButton.Visibility = Visibility.Visible;
                 }
             }
         }
@@ -58,15 +59,27 @@ namespace AlwaysOnTop
             bool modeSwitched;
             var applicationView = ApplicationView.GetForCurrentView();
 
-            if (AOTButton.IsChecked == true)
+            ViewModePreferences compactOptions = ViewModePreferences.CreateDefault(ApplicationViewMode.CompactOverlay);
+            compactOptions.CustomSize = new Windows.Foundation.Size(500, 500); // Max size
+            modeSwitched = await applicationView.TryEnterViewModeAsync(ApplicationViewMode.CompactOverlay, compactOptions);
+            if (modeSwitched)
             {
-                ViewModePreferences compactOptions = ViewModePreferences.CreateDefault(ApplicationViewMode.CompactOverlay);
-                compactOptions.CustomSize = new Windows.Foundation.Size(500, 500); // Max size
-                modeSwitched = await applicationView.TryEnterViewModeAsync(ApplicationViewMode.CompactOverlay, compactOptions);
+                AOTButton.Visibility = Visibility.Collapsed;
+                BackButton.Visibility = Visibility.Visible;
             }
-            else
+        }
+
+        private async void BackButton_Click(object sender, RoutedEventArgs e)
+        {
+            // https://blogs.msdn.microsoft.com/universal-windows-app-model/2017/02/11/compactoverlay-mode-aka-picture-in-picture/
+
+            bool modeSwitched;
+            var applicationView = ApplicationView.GetForCurrentView();
+            modeSwitched = await applicationView.TryEnterViewModeAsync(ApplicationViewMode.Default);
+            if (modeSwitched)
             {
-                modeSwitched = await applicationView.TryEnterViewModeAsync(ApplicationViewMode.Default);
+                AOTButton.Visibility = Visibility.Visible;
+                BackButton.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -127,7 +140,7 @@ namespace AlwaysOnTop
                 {
                     applicationView.TryEnterFullScreenMode();
                 }
-                else if(applicationView.ViewMode == ApplicationViewMode.CompactOverlay)
+                else if (applicationView.ViewMode == ApplicationViewMode.CompactOverlay)
                 {
                     // 281 = 500 * (9/16)
                     bool success = applicationView.TryResizeView(new Windows.Foundation.Size(500, 281));
@@ -156,25 +169,33 @@ namespace AlwaysOnTop
 
         private async void OpenBrowser()
         {
-            string address = AddressBox.Text;
-            if (address.StartsWith("http://") || address.StartsWith("https://"))
+            try
             {
-                Uri uri = new Uri(address);
-                if (MobileViewButton.IsChecked == true)
+                string address = AddressBox.Text;
+                if (address.StartsWith("http://") || address.StartsWith("https://"))
                 {
-                    // Change UserAgent and refresh
-                    HttpRequestMessage requestMsg = new HttpRequestMessage(HttpMethod.Get, uri);
-                    // https://qiita.com/niwasawa/items/44aaae7a1f942b62b9c1
-                    string ua = "Mozilla/5.0 (iPhone; CPU iPhone OS 11_0 like Mac OS X) AppleWebKit/604.1.38 (KHTML, like Gecko) Version/11.0 Mobile/15A372 Safari/604.1";
-                    requestMsg.Headers.Add("User-Agent", ua);
-                    BrowserWindow.NavigateWithHttpRequestMessage(requestMsg);
+                    Uri uri = new Uri(address);
+                    if (MobileViewButton.IsChecked == true)
+                    {
+                        // Change UserAgent and refresh
+                        HttpRequestMessage requestMsg = new HttpRequestMessage(HttpMethod.Get, uri);
+                        // https://qiita.com/niwasawa/items/44aaae7a1f942b62b9c1
+                        string ua = "Mozilla/5.0 (iPhone; CPU iPhone OS 11_0 like Mac OS X) AppleWebKit/604.1.38 (KHTML, like Gecko) Version/11.0 Mobile/15A372 Safari/604.1";
+                        requestMsg.Headers.Add("User-Agent", ua);
+                        BrowserWindow.NavigateWithHttpRequestMessage(requestMsg);
+                    }
+                    else
+                    {
+                        BrowserWindow.Navigate(new Uri(address));
+                    }
                 }
                 else
                 {
-                    BrowserWindow.Navigate(new Uri(address));
+                    var dlg = new MessageDialog("Web address must start with http(s)://", "Invalid web address");
+                    await dlg.ShowAsync();
                 }
             }
-            else
+            catch (Exception e)
             {
                 var dlg = new MessageDialog("Web address must start with http(s)://", "Invalid web address");
                 await dlg.ShowAsync();

@@ -33,15 +33,20 @@
                 </Grid>
             </CommandBar.Content>
             <AppBarButton x:Name="RefreshButton" Label="Refresh" Icon="Refresh" Click="RefreshButton_Click"/>
-            <AppBarToggleButton x:Name="AOTButton" Label="Always on Top" Click="AOTButton_Click">
-                <AppBarToggleButton.Content>
+            <AppBarButton x:Name="AOTButton" Label="Always on Top" Click="AOTButton_Click">
+                <AppBarButton.Content>
                     <!--https://stackoverflow.com/questions/45692232/w10-uwp-compactoverlay-button-icon-->
-                    <Grid Margin="0,0,0,0">
+                    <Grid>
                         <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,0,0" FontFamily="Segoe MDL2 Assets" FontSize="30">&#xE003;</TextBlock>
-                        <TextBlock HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,4,2" FontFamily="Segoe MDL2 Assets" FontSize="16">&#xEB9F;</TextBlock>
+                        <TextBlock HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,5,2" FontFamily="Segoe MDL2 Assets" FontSize="16">&#xEB9F;</TextBlock>
                     </Grid>
-                </AppBarToggleButton.Content>
-            </AppBarToggleButton>
+                </AppBarButton.Content>
+            </AppBarButton>
+            <AppBarButton x:Name="BackButton" Label="Back" Click="BackButton_Click" Visibility="Collapsed">
+                <AppBarButton.Content>
+                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE2B4;" />
+                </AppBarButton.Content>
+            </AppBarButton>
             <CommandBar.SecondaryCommands>
                 <AppBarToggleButton x:Name="MobileViewButton" Label="Mobile View" Icon="CellPhone" Click="MobileViewButton_Click"/>
                 <AppBarButton x:Name="AboutButton" Label="About" Icon="Help" Click="AboutButton_Click"/>
