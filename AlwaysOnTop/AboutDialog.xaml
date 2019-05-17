@@ -15,7 +15,22 @@
                 <TextBlock Text="Always on Top&#xA;Version 1.3.1&#xA;&#xA;Copyright (c) Ayamadori" TextWrapping="Wrap"/>
                 <HyperlinkButton Content="https://ayamadori.github.io/" NavigateUri="https://ayamadori.github.io/"/>
                 <HyperlinkButton Content="Privacy Policy" NavigateUri="https://ayamadori.github.io/AlwaysOnTop/PrivacyPolicy.html"/>
-                <Button Content="Rate this app" Margin="0,12" Click="RateButton_Click"/>
+                <Button x:Name="RateButton" Margin="0,12,0,0" Click="RateButton_Click">
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE728;" Margin="0,0,8,0"/>
+                            <TextBlock Text="Rating &amp; Review"/>
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+                <Button x:Name="FeedbackButton" Margin="0,12,0,0" Click="FeedbackButton_Click" Visibility="Collapsed">
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE939;" Margin="0,0,8,0"/>
+                            <TextBlock Text="Send feedback"/>
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
             </StackPanel>
         </ScrollViewer>
     </Grid>
