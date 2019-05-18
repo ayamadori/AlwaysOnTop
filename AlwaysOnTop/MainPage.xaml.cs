@@ -195,7 +195,7 @@ namespace AlwaysOnTop
                     await dlg.ShowAsync();
                 }
             }
-            catch (Exception e)
+            catch
             {
                 var dlg = new MessageDialog("Web address must start with http(s)://", "Invalid web address");
                 await dlg.ShowAsync();
