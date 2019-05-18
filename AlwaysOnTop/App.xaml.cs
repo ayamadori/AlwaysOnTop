@@ -51,39 +51,49 @@ namespace AlwaysOnTop
                 // フレームを現在のウィンドウに配置します
                 Window.Current.Content = rootFrame;
             }
-            else
+            //else
+            //{
+            //    // Show multiple views
+            //    // https://docs.microsoft.com/en-us/windows/uwp/design/layout/show-multiple-views
+            //    CoreApplicationView newView = CoreApplication.CreateNewView();
+            //    int newViewId = 0;
+            //    await newView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            //    {
+            //        Frame frame = new Frame();
+            //        frame.Navigate(typeof(MainPage), null);
+            //        Window.Current.Content = frame;
+            //        // You have to activate the window in order to show it later.
+            //        Window.Current.Activate();
+
+            //        newViewId = ApplicationView.GetForCurrentView().Id;
+            //    });
+            //    bool viewShown = await ApplicationViewSwitcher.TryShowAsStandaloneAsync(newViewId);
+
+            //    return;
+            //}
+
+            //if (e.PrelaunchActivated == false)
+            //{
+            //    if (rootFrame.Content == null)
+            //    {
+            //        // ナビゲーション スタックが復元されない場合は、最初のページに移動します。
+            //        // このとき、必要な情報をナビゲーション パラメーターとして渡して、新しいページを
+            //        //構成します
+            //        rootFrame.Navigate(typeof(MainPage), e.Arguments);
+            //    }
+            //    // 現在のウィンドウがアクティブであることを確認します
+            //    Window.Current.Activate();
+            //}
+
+            if (rootFrame.Content == null)
             {
-                // Show multiple views
-                // https://docs.microsoft.com/en-us/windows/uwp/design/layout/show-multiple-views
-                CoreApplicationView newView = CoreApplication.CreateNewView();
-                int newViewId = 0;
-                await newView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-                {
-                    Frame frame = new Frame();
-                    frame.Navigate(typeof(MainPage), null);
-                    Window.Current.Content = frame;
-                    // You have to activate the window in order to show it later.
-                    Window.Current.Activate();
-
-                    newViewId = ApplicationView.GetForCurrentView().Id;
-                });
-                bool viewShown = await ApplicationViewSwitcher.TryShowAsStandaloneAsync(newViewId);
-
-                return;
+                // ナビゲーション スタックが復元されない場合は、最初のページに移動します。
+                // このとき、必要な情報をナビゲーション パラメーターとして渡して、新しいページを
+                //構成します
+                rootFrame.Navigate(typeof(MainPage), e.Arguments);
             }
-
-            if (e.PrelaunchActivated == false)
-            {
-                if (rootFrame.Content == null)
-                {
-                    // ナビゲーション スタックが復元されない場合は、最初のページに移動します。
-                    // このとき、必要な情報をナビゲーション パラメーターとして渡して、新しいページを
-                    //構成します
-                    rootFrame.Navigate(typeof(MainPage), e.Arguments);
-                }
-                // 現在のウィンドウがアクティブであることを確認します
-                Window.Current.Activate();
-            }
+            // 現在のウィンドウがアクティブであることを確認します
+            Window.Current.Activate();
         }
 
         /// <summary>
