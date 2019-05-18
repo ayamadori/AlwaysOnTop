@@ -53,6 +53,7 @@
                 <AppBarButton/>
                 <AppBarButton/>
                 <AppBarButton/>
+                <AppBarButton/>
             </CommandBar.SecondaryCommands>
         </CommandBar>
         <WebView x:Name="BrowserWindow" Grid.Row="2" Margin="0" NavigationStarting="BrowserWindow_NavigationStarting" NavigationCompleted="BrowserWindow_NavigationCompleted" NavigationFailed="BrowserWindow_NavigationFailed" ContainsFullScreenElementChanged="BrowserWindow_ContainsFullScreenElementChanged"/>
