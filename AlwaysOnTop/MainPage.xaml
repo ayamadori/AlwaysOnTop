@@ -14,7 +14,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!--https://www.eternalcoding.com/?p=1952-->
+        <!--https://www.eternalcoding.com/uwptake-the-control-of-your-title-bar/-->
         <!--Background="Transparent" is needed to move window by using mouse-->
         <Grid Grid.Row="0" x:Name="TitleBar" Background="Transparent" Height="32">
             <TextBlock x:Name="TitleBlock" Text="Always on Top" VerticalAlignment="Center" HorizontalAlignment="Stretch" FontSize="12" Foreground="{ThemeResource ApplicationForegroundThemeBrush}" Margin="10,0"/>
