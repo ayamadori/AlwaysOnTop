@@ -21,7 +21,7 @@
         </Grid>
 
         <!--http://blog.mzikmund.com/2017/01/aligning-uwp-commandbar-content-after-anniversary-update/-->
-        <CommandBar x:Name="CommBar" Grid.Row="1" IsDynamicOverflowEnabled="False" HorizontalContentAlignment="Stretch">
+        <CommandBar x:Name="CommBar" Grid.Row="1" IsDynamicOverflowEnabled="False" HorizontalContentAlignment="Stretch" >
             <CommandBar.Content>
                 <Grid HorizontalAlignment="Stretch">
                     <Grid.ColumnDefinitions>
@@ -50,6 +50,9 @@
             <CommandBar.SecondaryCommands>
                 <AppBarToggleButton x:Name="MobileViewButton" Label="Mobile View" Icon="CellPhone" Click="MobileViewButton_Click"/>
                 <AppBarButton x:Name="AboutButton" Label="About" Icon="Help" Click="AboutButton_Click"/>
+                <AppBarButton/>
+                <AppBarButton/>
+                <AppBarButton/>
             </CommandBar.SecondaryCommands>
         </CommandBar>
         <WebView x:Name="BrowserWindow" Grid.Row="2" Margin="0" NavigationStarting="BrowserWindow_NavigationStarting" NavigationCompleted="BrowserWindow_NavigationCompleted" NavigationFailed="BrowserWindow_NavigationFailed" ContainsFullScreenElementChanged="BrowserWindow_ContainsFullScreenElementChanged"/>
