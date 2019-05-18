@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Always on Top")]
-[assembly: AssemblyCopyright("Copyright © 2018 Ayamadori")]
+[assembly: AssemblyCopyright("Copyright © 2019 Ayamadori")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
