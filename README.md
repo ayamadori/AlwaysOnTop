@@ -1,5 +1,5 @@
 # Always on Top
-Set the website to Always-on-Top (aka Picture-in-Picture, CompactOverlay, Mini View).  
+Set the website to Always-on-Top (a.k.a. Picture-in-Picture).  
 https://www.microsoft.com/store/apps/9p37ft08rnxm
 
 ## Feature
@@ -13,6 +13,9 @@ GNU GENERAL PUBLIC LICENSE Version 3
 http://www.gnu.org/licenses/gpl-3.0.html
 
 ## Version History
+- Version 1.3.7 (2019/05/29)
+  * Minor UI change
+  
 - Version 1.3.6 (2019/05/21)
   * Fix the issue about moving window (#1)
   * (A little) better error handling 
