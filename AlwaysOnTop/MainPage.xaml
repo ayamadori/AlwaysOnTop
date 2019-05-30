@@ -33,7 +33,7 @@
                     <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE72C;"/>
                 </Button.Content>
             </Button>
-            <TextBox Grid.Column="1" x:Name="AddressBox" Text="{x:Bind BrowserWindow.Source}" PlaceholderText="Enter web address" InputScope="Url" Margin="4" HorizontalAlignment="Stretch" KeyDown="AddressBox_KeyDown"/>
+            <TextBox Grid.Column="1" x:Name="AddressBox" PlaceholderText="Enter web address" InputScope="Url" Margin="4" HorizontalAlignment="Stretch" KeyDown="AddressBox_KeyDown"/>
             <Button Grid.Column="2" x:Name="AOTButton" Click="AOTButton_Click" ToolTipService.ToolTip="Always on Top" Background="Transparent" Margin="4,0">
                 <Button.Content>
                     <!--https://stackoverflow.com/questions/45692232/w10-uwp-compactoverlay-button-icon-->

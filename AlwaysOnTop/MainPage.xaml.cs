@@ -116,6 +116,7 @@ namespace AlwaysOnTop
             LoadingIndicator.Visibility = Visibility.Collapsed;
             RefreshButton.Visibility = Visibility.Visible;
             TitleBlock.Text = BrowserWindow.DocumentTitle;
+            AddressBox.Text = BrowserWindow.Source.AbsoluteUri;
         }
 
         private async void BrowserWindow_NavigationFailed(object sender, WebViewNavigationFailedEventArgs e)
