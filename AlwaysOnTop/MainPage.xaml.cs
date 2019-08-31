@@ -173,27 +173,27 @@ namespace AlwaysOnTop
             try
             {
                 string address = AddressBox.Text;
-                if (address.StartsWith("http://") || address.StartsWith("https://"))
+
+                // Ensure URI to start with http(s)://
+                if (!address.StartsWith("http://") && !address.StartsWith("https://"))
                 {
-                    Uri uri = new Uri(address);
-                    if (MobileViewButton.IsChecked == true)
-                    {
-                        // Change UserAgent and refresh
-                        HttpRequestMessage requestMsg = new HttpRequestMessage(HttpMethod.Get, uri);
-                        // https://qiita.com/niwasawa/items/44aaae7a1f942b62b9c1
-                        string ua = "Mozilla/5.0 (iPhone; CPU iPhone OS 11_0 like Mac OS X) AppleWebKit/604.1.38 (KHTML, like Gecko) Version/11.0 Mobile/15A372 Safari/604.1";
-                        requestMsg.Headers.Add("User-Agent", ua);
-                        BrowserWindow.NavigateWithHttpRequestMessage(requestMsg);
-                    }
-                    else
-                    {
-                        BrowserWindow.Navigate(new Uri(address));
-                    }
+                    address = "https://" + address;
+                    AddressBox.Text = address;
+                }
+                Uri uri = new Uri(address);
+
+                if (MobileViewButton.IsChecked == true)
+                {
+                    // Change UserAgent and refresh
+                    HttpRequestMessage requestMsg = new HttpRequestMessage(HttpMethod.Get, uri);
+                    // https://qiita.com/kapiecii/items/093ffd6f0b09ad775250
+                    string ua = "Mozilla/5.0 (iPhone; CPU iPhone OS 12_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) FxiOS/1.6.5b18.09.26.16 Mobile/16A366 Safari/605.1.15 _id/000002";
+                    requestMsg.Headers.Add("User-Agent", ua);
+                    BrowserWindow.NavigateWithHttpRequestMessage(requestMsg);
                 }
                 else
                 {
-                    var dlg = new MessageDialog("Web address must start with http(s)://", "Invalid web address");
-                    await dlg.ShowAsync();
+                    BrowserWindow.Navigate(new Uri(address));
                 }
             }
             catch
