@@ -20,10 +20,6 @@ namespace AlwaysOnTop
             }
         }
 
-        private void ContentDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
-        {
-        }
-
         private async void RateButton_Click(object sender, RoutedEventArgs e)
         {
             // https://github.com/Microsoft/Windows-task-snippets/blob/master/tasks/Store-app-rating-pop-up.md

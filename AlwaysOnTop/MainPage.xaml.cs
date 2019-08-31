@@ -5,6 +5,7 @@ using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Windows.Web.Http;
 
@@ -124,7 +125,8 @@ namespace AlwaysOnTop
             LoadingIndicator.IsActive = false;
             LoadingIndicator.Visibility = Visibility.Collapsed;
             RefreshButton.Visibility = Visibility.Visible;
-            var dlg = new MessageDialog(e.WebErrorStatus.ToString(), "Navigation Failed");
+
+            var dlg = new ContentDialog() { Title = "Navigation Failed", Content = e.WebErrorStatus.ToString(), CloseButtonText = "OK" };
             await dlg.ShowAsync();
         }
 
@@ -168,38 +170,30 @@ namespace AlwaysOnTop
             OpenBrowser();
         }
 
-        private async void OpenBrowser()
+        private void OpenBrowser()
         {
-            try
+            string address = AddressBox.Text;
+
+            // Ensure URI to start with http(s)://
+            if (!address.StartsWith("http://") && !address.StartsWith("https://"))
             {
-                string address = AddressBox.Text;
-
-                // Ensure URI to start with http(s)://
-                if (!address.StartsWith("http://") && !address.StartsWith("https://"))
-                {
-                    address = "https://" + address;
-                    AddressBox.Text = address;
-                }
-                Uri uri = new Uri(address);
-
-                if (MobileViewButton.IsChecked == true)
-                {
-                    // Change UserAgent and refresh
-                    HttpRequestMessage requestMsg = new HttpRequestMessage(HttpMethod.Get, uri);
-                    // https://qiita.com/kapiecii/items/093ffd6f0b09ad775250
-                    string ua = "Mozilla/5.0 (iPhone; CPU iPhone OS 12_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) FxiOS/1.6.5b18.09.26.16 Mobile/16A366 Safari/605.1.15 _id/000002";
-                    requestMsg.Headers.Add("User-Agent", ua);
-                    BrowserWindow.NavigateWithHttpRequestMessage(requestMsg);
-                }
-                else
-                {
-                    BrowserWindow.Navigate(new Uri(address));
-                }
+                address = "https://" + address;
+                AddressBox.Text = address;
             }
-            catch
+            Uri uri = new Uri(address);
+
+            if (MobileViewButton.IsChecked == true)
             {
-                var dlg = new MessageDialog("Web address must start with http(s)://", "Invalid web address");
-                await dlg.ShowAsync();
+                // Change UserAgent and refresh
+                HttpRequestMessage requestMsg = new HttpRequestMessage(HttpMethod.Get, uri);
+                // https://qiita.com/kapiecii/items/093ffd6f0b09ad775250
+                string ua = "Mozilla/5.0 (iPhone; CPU iPhone OS 12_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) FxiOS/1.6.5b18.09.26.16 Mobile/16A366 Safari/605.1.15 _id/000002";
+                requestMsg.Headers.Add("User-Agent", ua);
+                BrowserWindow.NavigateWithHttpRequestMessage(requestMsg);
+            }
+            else
+            {
+                BrowserWindow.Navigate(new Uri(address));
             }
         }
     }
