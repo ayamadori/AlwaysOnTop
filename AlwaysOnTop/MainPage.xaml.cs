@@ -1,11 +1,9 @@
 ﻿using System;
 using Windows.ApplicationModel.Core;
-using Windows.UI.Popups;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Windows.Web.Http;
 
@@ -170,7 +168,7 @@ namespace AlwaysOnTop
             OpenBrowser();
         }
 
-        private void OpenBrowser()
+        private async void OpenBrowser()
         {
             string address = AddressBox.Text;
 
@@ -180,20 +178,30 @@ namespace AlwaysOnTop
                 address = "https://" + address;
                 AddressBox.Text = address;
             }
-            Uri uri = new Uri(address);
 
-            if (MobileViewButton.IsChecked == true)
+            try
             {
-                // Change UserAgent and refresh
-                HttpRequestMessage requestMsg = new HttpRequestMessage(HttpMethod.Get, uri);
-                // https://qiita.com/kapiecii/items/093ffd6f0b09ad775250
-                string ua = "Mozilla/5.0 (iPhone; CPU iPhone OS 12_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) FxiOS/1.6.5b18.09.26.16 Mobile/16A366 Safari/605.1.15 _id/000002";
-                requestMsg.Headers.Add("User-Agent", ua);
-                BrowserWindow.NavigateWithHttpRequestMessage(requestMsg);
+                Uri uri = new Uri(address);
+
+                if (MobileViewButton.IsChecked == true)
+                {
+                    // Change UserAgent and refresh
+                    HttpRequestMessage requestMsg = new HttpRequestMessage(HttpMethod.Get, uri);
+                    // https://qiita.com/kapiecii/items/093ffd6f0b09ad775250
+                    string ua = "Mozilla/5.0 (iPhone; CPU iPhone OS 12_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) FxiOS/1.6.5b18.09.26.16 Mobile/16A366 Safari/605.1.15 _id/000002";
+                    requestMsg.Headers.Add("User-Agent", ua);
+                    BrowserWindow.NavigateWithHttpRequestMessage(requestMsg);
+                }
+                else
+                {
+                    BrowserWindow.Navigate(new Uri(address));
+                }
             }
-            else
+            catch
             {
-                BrowserWindow.Navigate(new Uri(address));
+                var dlg = new ContentDialog() { Title = "Invalid web address", Content = "Check and re-enter web address", CloseButtonText = "OK" };
+                await dlg.ShowAsync();
+                return;
             }
         }
     }
