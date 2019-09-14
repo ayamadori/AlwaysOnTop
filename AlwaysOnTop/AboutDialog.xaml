@@ -11,7 +11,7 @@
     <Grid>
         <ScrollViewer>
             <StackPanel Margin="0,12">
-                <TextBlock Text="Always on Top&#xA;Version 1.3.7&#xA;&#xA;Copyright (C) Ayamadori" TextWrapping="Wrap"/>
+                <TextBlock Text="Always on Top&#xA;Version 1.4.0&#xA;&#xA;Copyright (C) Ayamadori" TextWrapping="Wrap"/>
                 <HyperlinkButton Content="https://ayamadori.github.io/" NavigateUri="https://ayamadori.github.io/"/>
                 <HyperlinkButton Content="Privacy Policy" NavigateUri="https://ayamadori.github.io/AlwaysOnTop/PrivacyPolicy.html"/>
                 <Button x:Name="RateButton" Margin="0,12,0,0" Click="RateButton_Click">
