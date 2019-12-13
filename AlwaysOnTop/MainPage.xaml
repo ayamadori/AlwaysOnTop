@@ -5,6 +5,7 @@
     xmlns:local="using:AlwaysOnTop"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -28,23 +29,23 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <ProgressRing Grid.Column="0" x:Name="LoadingIndicator" IsActive="False" Width="40.8" Margin="8,0" Visibility="Visible"/>
-            <Button Grid.Column="0" x:Name="RefreshButton" Click="RefreshButton_Click" ToolTipService.ToolTip="Refresh" Background="Transparent" Margin="8,0">
+            <Button Grid.Column="0" x:Name="RefreshButton" Click="RefreshButton_Click" ToolTipService.ToolTip="Refresh" ToolTipService.Placement="Bottom" Background="Transparent" Margin="8,0">
                 <Button.Content>
                     <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE72C;"/>
                 </Button.Content>
             </Button>
             <TextBox Grid.Column="1" x:Name="AddressBox" PlaceholderText="Enter web address" InputScope="Url" Margin="0,4" HorizontalAlignment="Stretch" Background="{ThemeResource SystemChromeLowColor}" BorderBrush="Transparent" FontSize="16" KeyDown="AddressBox_KeyDown"/>
-            <Button Grid.Column="2" x:Name="AOTButton" Click="AOTButton_Click" ToolTipService.ToolTip="Always on Top" Background="Transparent" Margin="8,0">
+            <Button Grid.Column="2" x:Name="AOTButton" Click="AOTButton_Click" ToolTipService.ToolTip="Always on Top" ToolTipService.Placement="Bottom" Background="Transparent" Margin="8,0">
                 <Button.Content>
                     <FontIcon Glyph="&#xE8B9;" />
                 </Button.Content>
             </Button>
-            <Button Grid.Column="2" x:Name="BackButton" Click="BackButton_Click" Visibility="Collapsed" ToolTipService.ToolTip="Back" Background="Transparent" Margin="8,0">
+            <Button Grid.Column="2" x:Name="BackButton" Click="BackButton_Click" Visibility="Collapsed" ToolTipService.ToolTip="Back" ToolTipService.Placement="Bottom" Background="Transparent" Margin="8,0">
                 <Button.Content>
                     <FontIcon Glyph="&#xE2B4;" />
                 </Button.Content>
             </Button>
-            <Button Grid.Column="3" Background="Transparent" Margin="0,0,8,0" ToolTipService.ToolTip="More">
+            <Button Grid.Column="3" Background="Transparent" Margin="0,0,8,0" ToolTipService.ToolTip="More" ToolTipService.Placement="Bottom">
                 <Button.Content>
                     <FontIcon Glyph="&#xE10C;" />
                 </Button.Content>
@@ -56,6 +57,7 @@
                 </Button.Flyout>
             </Button>
         </Grid>
+        <muxc:TeachingTip x:Name="ErrorDialog" CloseButtonContent="OK" PreferredPlacement="Top" PlacementMargin="40" />
 
         <WebView x:Name="BrowserWindow" Grid.Row="2" Margin="0" NavigationStarting="BrowserWindow_NavigationStarting" NavigationCompleted="BrowserWindow_NavigationCompleted" NavigationFailed="BrowserWindow_NavigationFailed" ContainsFullScreenElementChanged="BrowserWindow_ContainsFullScreenElementChanged"/>
     </Grid>

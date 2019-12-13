@@ -30,7 +30,6 @@
         <uap:Extension Category="windows.shareTarget">
           <uap:ShareTarget>
             <uap:DataFormat>WebLink</uap:DataFormat>
-            <uap:SupportedFileTypes/>
           </uap:ShareTarget>
         </uap:Extension>
         <uap:Extension Category="windows.protocol">

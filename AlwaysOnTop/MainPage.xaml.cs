@@ -6,6 +6,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
 using Windows.Web.Http;
+using Microsoft.UI.Xaml.Controls;
 
 // 空白ページの項目テンプレートについては、https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x411 を参照してください
 
@@ -118,14 +119,15 @@ namespace AlwaysOnTop
             AddressBox.Text = BrowserWindow.Source.AbsoluteUri;
         }
 
-        private async void BrowserWindow_NavigationFailed(object sender, WebViewNavigationFailedEventArgs e)
+        private void BrowserWindow_NavigationFailed(object sender, WebViewNavigationFailedEventArgs e)
         {
             LoadingIndicator.IsActive = false;
             LoadingIndicator.Visibility = Visibility.Collapsed;
             RefreshButton.Visibility = Visibility.Visible;
 
-            var dlg = new ContentDialog() { Title = "Navigation Failed", Content = e.WebErrorStatus.ToString(), CloseButtonText = "OK" };
-            await dlg.ShowAsync();
+            ErrorDialog.Title = "Navigation Failed";
+            ErrorDialog.Subtitle = e.WebErrorStatus.ToString();
+            ErrorDialog.IsOpen = true;
         }
 
         private void BrowserWindow_ContainsFullScreenElementChanged(WebView sender, object args)
@@ -168,7 +170,7 @@ namespace AlwaysOnTop
             OpenBrowser();
         }
 
-        private async void OpenBrowser()
+        private void OpenBrowser()
         {
             string address = AddressBox.Text;
 
@@ -199,9 +201,9 @@ namespace AlwaysOnTop
             }
             catch
             {
-                var dlg = new ContentDialog() { Title = "Invalid web address", Content = "Check and re-enter web address", CloseButtonText = "OK" };
-                await dlg.ShowAsync();
-                return;
+                ErrorDialog.Title = "Invalid web address";
+                ErrorDialog. Subtitle = "Check and re-enter web address";
+                ErrorDialog.IsOpen = true;
             }
         }
     }
