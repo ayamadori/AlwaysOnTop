@@ -1,4 +1,5 @@
 ﻿using System;
+using Windows.Services.Store;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -21,9 +22,8 @@ namespace AlwaysOnTop
 
         private async void RateButton_Click(object sender, RoutedEventArgs e)
         {
-            // https://github.com/Microsoft/Windows-task-snippets/blob/master/tasks/Store-app-rating-pop-up.md
-            var uriReview = new Uri($"ms-windows-store://review/?ProductId=9p37ft08rnxm");
-            var success = await Windows.System.Launcher.LaunchUriAsync(uriReview);
+            // https://docs.microsoft.com/en-us/windows/uwp/monetize/request-ratings-and-reviews
+            var success = await StoreContext.GetDefault().RequestRateAndReviewAppAsync();
         }
 
         private async void FeedbackButton_Click(object sender, RoutedEventArgs e)
