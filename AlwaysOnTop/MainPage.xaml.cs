@@ -202,7 +202,7 @@ namespace AlwaysOnTop
             catch
             {
                 ErrorDialog.Title = "Invalid web address";
-                ErrorDialog. Subtitle = "Check and re-enter web address";
+                ErrorDialog.Subtitle = "Check and re-enter web address";
                 ErrorDialog.IsOpen = true;
             }
         }

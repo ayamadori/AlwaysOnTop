@@ -2,10 +2,9 @@
     x:Class="AlwaysOnTop.MainPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:AlwaysOnTop"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -57,7 +56,7 @@
                 </Button.Flyout>
             </Button>
         </Grid>
-        <muxc:TeachingTip x:Name="ErrorDialog" CloseButtonContent="OK" PreferredPlacement="Top" PlacementMargin="40" />
+        <muxc:TeachingTip x:Name="ErrorDialog" CloseButtonContent="OK" PreferredPlacement="Top" PlacementMargin="40" IsLightDismissEnabled="False" IsOpen="False"/>
 
         <WebView x:Name="BrowserWindow" Grid.Row="2" Margin="0" NavigationStarting="BrowserWindow_NavigationStarting" NavigationCompleted="BrowserWindow_NavigationCompleted" NavigationFailed="BrowserWindow_NavigationFailed" ContainsFullScreenElementChanged="BrowserWindow_ContainsFullScreenElementChanged"/>
     </Grid>
