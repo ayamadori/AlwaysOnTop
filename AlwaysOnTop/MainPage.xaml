@@ -59,5 +59,39 @@
         <muxc:TeachingTip x:Name="ErrorDialog" CloseButtonContent="OK" PreferredPlacement="Top" PlacementMargin="40" IsLightDismissEnabled="False" IsOpen="False"/>
 
         <WebView x:Name="BrowserWindow" Grid.Row="2" Margin="0" NavigationStarting="BrowserWindow_NavigationStarting" NavigationCompleted="BrowserWindow_NavigationCompleted" NavigationFailed="BrowserWindow_NavigationFailed" ContainsFullScreenElementChanged="BrowserWindow_ContainsFullScreenElementChanged"/>
+
+        <ScrollViewer x:Name="Howtouse" Grid.Row="2">
+            <StackPanel>
+                <TextBlock Margin="8" Text="How to use" Style="{StaticResource TitleTextBlockStyle}"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+                    <Image Margin="8" Height="48" Source="Assets/MicrosoftEdge.png"/>
+                    <StackPanel>
+                        <TextBlock Margin="8,4,0,0" Text="1. Open" Style="{StaticResource SubtitleTextBlockStyle}"/>
+                        <TextBlock Margin="16,4,0,0" Text="Open website in web browser etc." TextWrapping="Wrap"/>
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Border Margin="8" Width="48" Height="48" Background="#FF0078D7">
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE72D;" FontSize="36" Foreground="White" />
+                    </Border>
+                    <StackPanel>
+                        <TextBlock Margin="8,4,0,0" Text="2. Share" Style="{StaticResource SubtitleTextBlockStyle}"/>
+                        <TextBlock Margin="16,4,0,0" Text="Select [Share] in the menu." TextWrapping="Wrap"/>
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Border Margin="8" Width="48" Height="48" Background="#FF0078D7">
+                        <Image Margin="6" Source="Assets/Miniview.png"/>
+                    </Border>
+                    <StackPanel>
+                        <TextBlock Margin="8,4,0,0" Text="3. Select" Style="{StaticResource SubtitleTextBlockStyle}"/>
+                        <TextBlock Margin="16,4,0,0" Text="Tap [Alwats on Top]." TextWrapping="Wrap"/>
+                    </StackPanel>
+                </StackPanel>
+                <TextBlock Margin="8" Text="The website is set to Always-on-Top (a.k.a. Picture-in-Picture)." TextWrapping="WrapWholeWords"/>
+                <Button Margin="8" x:Name="OpenBrowserButton" Content="Let's start!&#xa;(Open browser)" HorizontalAlignment="Stretch" Click="OpenBrowserButton_Click"/>
+            </StackPanel>
+        </ScrollViewer>
+        
     </Grid>
 </Page>

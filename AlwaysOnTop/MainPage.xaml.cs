@@ -172,6 +172,7 @@ namespace AlwaysOnTop
 
         private void OpenBrowser()
         {
+            Howtouse.Visibility = Visibility.Collapsed;
             string address = AddressBox.Text;
 
             // Ensure URI to start with http(s)://
@@ -205,6 +206,12 @@ namespace AlwaysOnTop
                 ErrorDialog.Subtitle = "Check and re-enter web address";
                 ErrorDialog.IsOpen = true;
             }
+        }
+
+        private async void OpenBrowserButton_Click(object sender, RoutedEventArgs e)
+        {
+            var uriBrowser = new Uri("https://www.microsoft.com/");
+            var success = await Windows.System.Launcher.LaunchUriAsync(uriBrowser);
         }
     }
 }
