@@ -5,8 +5,15 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
+    xmlns:local="using:AlwaysOnTop"
     Title="About"
     CloseButtonText="OK">
+
+    <!--Dirty fix :(--> 
+    <!--https://github.com/microsoft/microsoft-ui-xaml/issues/1779#issuecomment-568172996-->
+    <ContentDialog.Resources>
+        <Style TargetType="local:AboutDialog" BasedOn="{StaticResource DefaultContentDialogStyle}" />
+    </ContentDialog.Resources>
 
     <Grid>
         <ScrollViewer>
