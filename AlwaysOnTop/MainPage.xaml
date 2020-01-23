@@ -60,7 +60,7 @@
 
         <WebView x:Name="BrowserWindow" Grid.Row="2" Margin="0" NavigationStarting="BrowserWindow_NavigationStarting" NavigationCompleted="BrowserWindow_NavigationCompleted" NavigationFailed="BrowserWindow_NavigationFailed" ContainsFullScreenElementChanged="BrowserWindow_ContainsFullScreenElementChanged"/>
 
-        <ScrollViewer x:Name="Howtouse" Grid.Row="2">
+        <ScrollViewer x:Name="Howtouse" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center">
             <StackPanel>
                 <TextBlock Margin="8" Text="How to use" Style="{StaticResource TitleTextBlockStyle}"/>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
@@ -89,7 +89,7 @@
                     </StackPanel>
                 </StackPanel>
                 <TextBlock Margin="8" Text="The website is set to Always-on-Top (a.k.a. Picture-in-Picture)." TextWrapping="WrapWholeWords"/>
-                <Button Margin="8" x:Name="OpenBrowserButton" Content="Let's start!&#xa;(Open browser)" HorizontalAlignment="Stretch" Click="OpenBrowserButton_Click"/>
+                <Button Margin="8" x:Name="OpenBrowserButton" Content="Let's start! (Open browser)" HorizontalAlignment="Stretch" Click="OpenBrowserButton_Click"/>
             </StackPanel>
         </ScrollViewer>
         
