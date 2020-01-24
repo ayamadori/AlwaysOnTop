@@ -114,7 +114,9 @@ namespace AlwaysOnTop
         {
             LoadingIndicator.IsActive = false;
             LoadingIndicator.Visibility = Visibility.Collapsed;
+            ErrorWindow.Visibility = Visibility.Collapsed;
             RefreshButton.Visibility = Visibility.Visible;
+            BrowserWindow.Visibility = Visibility.Visible;
             TitleBlock.Text = BrowserWindow.DocumentTitle;
             AddressBox.Text = BrowserWindow.Source.AbsoluteUri;
         }
@@ -125,9 +127,11 @@ namespace AlwaysOnTop
             LoadingIndicator.Visibility = Visibility.Collapsed;
             RefreshButton.Visibility = Visibility.Visible;
 
-            ErrorDialog.Title = "Navigation Failed";
-            ErrorDialog.Subtitle = e.WebErrorStatus.ToString();
-            ErrorDialog.IsOpen = true;
+            BrowserWindow.Visibility = Visibility.Collapsed;
+            ErrorTitle.Text = "Navigation Failed";
+            ErrorContent.Text = e.WebErrorStatus.ToString();
+            ErrorWindow.Visibility = Visibility.Visible;
+            TitleBlock.Text = ErrorTitle.Text;
         }
 
         private void BrowserWindow_ContainsFullScreenElementChanged(WebView sender, object args)
@@ -202,9 +206,11 @@ namespace AlwaysOnTop
             }
             catch
             {
-                ErrorDialog.Title = "Invalid web address";
-                ErrorDialog.Subtitle = "Check and re-enter web address";
-                ErrorDialog.IsOpen = true;
+                BrowserWindow.Visibility = Visibility.Collapsed;
+                ErrorTitle.Text = "Invalid web address";
+                ErrorContent.Text = "Check and re-enter web address";
+                ErrorWindow.Visibility = Visibility.Visible;
+                TitleBlock.Text = ErrorTitle.Text;
             }
         }
 
