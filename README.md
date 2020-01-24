@@ -6,13 +6,18 @@ https://www.microsoft.com/store/apps/9p37ft08rnxm
 Share target to receive the website URL
 
 ## Test
-Tested on Windows 10 Version 1903
+Tested on Windows 10 Version 1909
 
 ## License
 GNU GENERAL PUBLIC LICENSE Version 3  
 http://www.gnu.org/licenses/gpl-3.0.html
 
 ## Version History
+- Version 1.4.0 (2020/01/25)
+  * Refine UI
+  * Update library
+  * Remove support for Windows 10 Version 1803 and older
+  
 - Version 1.3.7 (2019/05/29)
   * Minor UI change
   
