@@ -6,7 +6,6 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
 using Windows.Web.Http;
-using Microsoft.UI.Xaml.Controls;
 
 // 空白ページの項目テンプレートについては、https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x411 を参照してください
 
@@ -186,7 +185,8 @@ namespace AlwaysOnTop
                 AddressBox.Text = address;
             }
 
-            try
+            // Check URI
+            if (Uri.IsWellFormedUriString(address, UriKind.Absolute) == true)
             {
                 Uri uri = new Uri(address);
 
@@ -201,10 +201,10 @@ namespace AlwaysOnTop
                 }
                 else
                 {
-                    BrowserWindow.Navigate(new Uri(address));
+                    BrowserWindow.Navigate(uri);
                 }
             }
-            catch
+            else
             {
                 BrowserWindow.Visibility = Visibility.Collapsed;
                 ErrorTitle.Text = "Invalid web address";
