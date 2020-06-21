@@ -142,11 +142,11 @@ namespace AlwaysOnTop
 
             if (sender.ContainsFullScreenElement)
             {
-                TitleBar.Visibility = Visibility.Collapsed;
                 CommBar.Visibility = Visibility.Collapsed;
 
                 if (applicationView.ViewMode == ApplicationViewMode.Default)
                 {
+                    TitleBar.Visibility = Visibility.Collapsed;
                     applicationView.TryEnterFullScreenMode();
                 }
                 else if (applicationView.ViewMode == ApplicationViewMode.CompactOverlay)
@@ -157,11 +157,11 @@ namespace AlwaysOnTop
             }
             else
             {
-                TitleBar.Visibility = Visibility.Visible;
                 CommBar.Visibility = Visibility.Visible;
 
                 if (applicationView.IsFullScreenMode)
                 {
+                    TitleBar.Visibility = Visibility.Visible;
                     applicationView.ExitFullScreenMode();
                 }
                 else if (applicationView.ViewMode == ApplicationViewMode.CompactOverlay)
@@ -221,6 +221,11 @@ namespace AlwaysOnTop
         {
             var uriBrowser = new Uri("https://www.microsoft.com/");
             var success = await Windows.System.Launcher.LaunchUriAsync(uriBrowser);
+        }
+
+        private void AutoRefreshButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
