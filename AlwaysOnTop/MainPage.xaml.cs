@@ -204,12 +204,12 @@ namespace AlwaysOnTop
             {
                 Uri uri = new Uri(address);
 
-                if (MobileViewButton.IsChecked == true)
+                if (MobileViewButton.IsChecked)
                 {
                     // Change UserAgent and refresh
                     HttpRequestMessage requestMsg = new HttpRequestMessage(HttpMethod.Get, uri);
                     // https://qiita.com/kapiecii/items/093ffd6f0b09ad775250
-                    string ua = "Mozilla/5.0 (iPhone; CPU iPhone OS 12_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) FxiOS/1.6.5b18.09.26.16 Mobile/16A366 Safari/605.1.15 _id/000002";
+                    string ua = "Mozilla/5.0 (iPhone; CPU iPhone OS 13_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0 Mobile/15E148 Safari/604.1";
                     requestMsg.Headers.Add("User-Agent", ua);
                     BrowserWindow.NavigateWithHttpRequestMessage(requestMsg);
                 }
