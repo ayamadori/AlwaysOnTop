@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using Windows.ApplicationModel.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
@@ -16,6 +17,8 @@ namespace AlwaysOnTop
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        private DispatcherTimer Timer;
+
         public MainPage()
         {
             this.InitializeComponent();
@@ -24,6 +27,14 @@ namespace AlwaysOnTop
             CoreApplicationViewTitleBar coreTitleBar = CoreApplication.GetCurrentView().TitleBar;
             coreTitleBar.ExtendViewIntoTitleBar = true;
             Window.Current.SetTitleBar(TitleBar);
+
+            // Setup AutoRefresh timer
+            Timer = new DispatcherTimer();
+            Timer.Tick += (s, e) =>
+                {
+                    OpenBrowser();
+                    Debug.WriteLine("Browser refreshed");
+                };
         }
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
@@ -225,7 +236,18 @@ namespace AlwaysOnTop
 
         private void AutoRefreshButton_Click(object sender, RoutedEventArgs e)
         {
-
+            if (AutoRefreshButton.IsChecked)
+            {
+                // Set timer (15sec)
+                Timer.Interval = new TimeSpan(0, 0, 15);
+                Timer.Start();
+                Debug.WriteLine("Timer started");
+            }
+            else
+            {
+                Timer.Stop();
+                Debug.WriteLine("Timer stopped");
+            }
         }
     }
 }
