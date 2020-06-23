@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using Windows.ApplicationModel.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
@@ -17,7 +16,7 @@ namespace AlwaysOnTop
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        private DispatcherTimer Timer;
+        private DispatcherTimer autoRefreshTimer;
 
         public MainPage()
         {
@@ -29,12 +28,9 @@ namespace AlwaysOnTop
             Window.Current.SetTitleBar(TitleBar);
 
             // Setup AutoRefresh timer
-            Timer = new DispatcherTimer();
-            Timer.Tick += (s, e) =>
-                {
-                    OpenBrowser();
-                    Debug.WriteLine("Browser refreshed");
-                };
+            autoRefreshTimer = new DispatcherTimer();
+            autoRefreshTimer.Interval = new TimeSpan(0, 0, 15); // 15sec
+            autoRefreshTimer.Tick += (s, e) => { OpenBrowser(); };
         }
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
@@ -208,7 +204,7 @@ namespace AlwaysOnTop
                 {
                     // Change UserAgent and refresh
                     HttpRequestMessage requestMsg = new HttpRequestMessage(HttpMethod.Get, uri);
-                    // https://qiita.com/kapiecii/items/093ffd6f0b09ad775250
+                    // https://qiita.com/niwasawa/items/df30ffddf2e709b2ca43
                     string ua = "Mozilla/5.0 (iPhone; CPU iPhone OS 13_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0 Mobile/15E148 Safari/604.1";
                     requestMsg.Headers.Add("User-Agent", ua);
                     BrowserWindow.NavigateWithHttpRequestMessage(requestMsg);
@@ -238,15 +234,11 @@ namespace AlwaysOnTop
         {
             if (AutoRefreshButton.IsChecked)
             {
-                // Set timer (15sec)
-                Timer.Interval = new TimeSpan(0, 0, 15);
-                Timer.Start();
-                Debug.WriteLine("Timer started");
+                autoRefreshTimer.Start();
             }
             else
             {
-                Timer.Stop();
-                Debug.WriteLine("Timer stopped");
+                autoRefreshTimer.Stop();
             }
         }
     }

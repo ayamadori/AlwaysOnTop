@@ -21,12 +21,12 @@
 
         <Grid x:Name="CommBar" Grid.Row="1" HorizontalAlignment="Stretch" Background="{StaticResource SystemBaseLowColor}">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="54.4"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <ProgressRing Grid.Column="0" x:Name="LoadingIndicator" IsActive="False" Width="40.8" Margin="8,0" Visibility="Visible"/>
+            <ProgressRing Grid.Column="0" x:Name="LoadingIndicator" IsActive="False" Margin="8,0" Visibility="Visible"/>
             <Button Grid.Column="0" x:Name="RefreshButton" Click="RefreshButton_Click" ToolTipService.ToolTip="Refresh" ToolTipService.Placement="Bottom" Background="Transparent" Margin="8,0">
                 <Button.Content>
                     <FontIcon Glyph="&#xE72C;"/>
