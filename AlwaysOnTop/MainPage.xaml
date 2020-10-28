@@ -19,7 +19,7 @@
             <TextBlock x:Name="TitleBlock" Text="Always on Top" VerticalAlignment="Center" HorizontalAlignment="Stretch" FontSize="12" Foreground="{ThemeResource ApplicationForegroundThemeBrush}" Margin="10,0"/>
         </Grid>
 
-        <Grid x:Name="CommBar" Grid.Row="1" HorizontalAlignment="Stretch" Background="{StaticResource SystemBaseLowColor}">
+        <Grid x:Name="CommBar" Grid.Row="1" HorizontalAlignment="Stretch" Background="{ThemeResource SystemChromeMediumLowColor}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="54.4"/>
                 <ColumnDefinition Width="*"/>
@@ -32,7 +32,7 @@
                     <FontIcon Glyph="&#xE72C;"/>
                 </Button.Content>
             </Button>
-            <TextBox Grid.Column="1" x:Name="AddressBox" PlaceholderText="Enter web address" InputScope="Url" Margin="0,4" HorizontalAlignment="Stretch" Background="{ThemeResource SystemChromeLowColor}" BorderBrush="Transparent" FontSize="16" KeyDown="AddressBox_KeyDown"/>
+            <TextBox Grid.Column="1" x:Name="AddressBox" PlaceholderText="Enter web address" InputScope="Url" Margin="0,4" HorizontalAlignment="Stretch" BorderBrush="Transparent" KeyDown="AddressBox_KeyDown"/>
             <Button Grid.Column="2" x:Name="AOTButton" Click="AOTButton_Click" ToolTipService.ToolTip="Always on Top" ToolTipService.Placement="Bottom" Background="Transparent" Margin="8,0">
                 <Button.Content>
                     <FontIcon Glyph="&#xE8B9;" />

@@ -16,7 +16,7 @@ namespace AlwaysOnTop
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        private DispatcherTimer autoRefreshTimer;
+        private readonly DispatcherTimer autoRefreshTimer;
 
         public MainPage()
         {
