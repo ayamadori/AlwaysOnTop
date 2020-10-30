@@ -52,7 +52,6 @@ namespace AlwaysOnTop
                 if (modeSwitched)
                 {
                     // modeSwitched is sometimes false. Why?
-                    TitleBar.Visibility = Visibility.Collapsed;
                     AOTButton.Visibility = Visibility.Collapsed;
                     BackButton.Visibility = Visibility.Visible;
                 }
@@ -71,7 +70,6 @@ namespace AlwaysOnTop
             modeSwitched = await applicationView.TryEnterViewModeAsync(ApplicationViewMode.CompactOverlay, compactOptions);
             if (modeSwitched)
             {
-                TitleBar.Visibility = Visibility.Collapsed;
                 AOTButton.Visibility = Visibility.Collapsed;
                 BackButton.Visibility = Visibility.Visible;
             }
@@ -86,7 +84,6 @@ namespace AlwaysOnTop
             modeSwitched = await applicationView.TryEnterViewModeAsync(ApplicationViewMode.Default);
             if (modeSwitched)
             {
-                TitleBar.Visibility = Visibility.Visible;
                 AOTButton.Visibility = Visibility.Visible;
                 BackButton.Visibility = Visibility.Collapsed;
             }
