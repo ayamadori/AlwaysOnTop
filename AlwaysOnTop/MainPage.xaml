@@ -70,8 +70,8 @@
                     </StackPanel>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <Border Margin="8" Width="48" Height="48" Background="#FF0078D7">
-                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE72D;" FontSize="36" Foreground="White" />
+                    <Border Margin="8" Width="48" Height="48" Background="{ThemeResource SystemChromeMediumLowColor}">
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE72D;" FontSize="36" Foreground="{ThemeResource ApplicationForegroundThemeBrush}" />
                     </Border>
                     <StackPanel>
                         <TextBlock Margin="8,4,0,0" Text="2. Share" Style="{StaticResource SubtitleTextBlockStyle}"/>
@@ -79,7 +79,7 @@
                     </StackPanel>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <Border Margin="8" Width="48" Height="48" Background="#FF0078D7">
+                    <Border Margin="8" Width="48" Height="48" Background="{ThemeResource SystemAccentColor}">
                         <Image Margin="6" Source="Assets/Miniview.png"/>
                     </Border>
                     <StackPanel>
