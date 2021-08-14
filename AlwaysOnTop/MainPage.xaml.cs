@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.UI.Xaml.Controls;
+using System;
 using Windows.ApplicationModel.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
@@ -29,7 +30,6 @@ namespace AlwaysOnTop
 
             // Setup AutoRefresh timer
             autoRefreshTimer = new DispatcherTimer();
-            autoRefreshTimer.Interval = new TimeSpan(0, 0, 15); // 15sec
             autoRefreshTimer.Tick += (s, e) => { OpenBrowser(); };
         }
 
@@ -236,17 +236,15 @@ namespace AlwaysOnTop
             var success = await Windows.System.Launcher.LaunchUriAsync(uriBrowser);
         }
 
-        private void AutoRefreshButton_Click(object sender, RoutedEventArgs e)
+        private void RadioMenuFlyoutItem_Click(object sender, RoutedEventArgs e)
         {
-            if (AutoRefreshButton.IsChecked)
+            autoRefreshTimer.Stop();
+            string content = (sender as RadioMenuFlyoutItem).Text;
+            if (content.Contains(" "))
             {
+                autoRefreshTimer.Interval = new TimeSpan(0, 0, int.Parse(content.Substring(0, 2)));
                 autoRefreshTimer.Start();
             }
-            else
-            {
-                autoRefreshTimer.Stop();
-            }
         }
-
     }
 }

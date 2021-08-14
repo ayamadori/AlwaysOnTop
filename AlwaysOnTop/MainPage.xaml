@@ -57,7 +57,12 @@
                                 <FontIcon Glyph="&#xE977;"/>
                             </MenuFlyoutItem.Icon>
                         </MenuFlyoutItem>
-                        <ToggleMenuFlyoutItem x:Name="AutoRefreshButton" Text="Auto Refresh" Icon="Refresh" Click="AutoRefreshButton_Click"/>
+                        <MenuFlyoutSubItem x:Name="AutoRefreshButton" Text="Auto Refresh" Icon="Clock">
+                            <muxc:RadioMenuFlyoutItem Text="None" Click="RadioMenuFlyoutItem_Click" IsChecked="True"/>
+                            <muxc:RadioMenuFlyoutItem Text="15 seconds" Click="RadioMenuFlyoutItem_Click"/>
+                            <muxc:RadioMenuFlyoutItem Text="30 seconds" Click="RadioMenuFlyoutItem_Click"/>
+                            <muxc:RadioMenuFlyoutItem Text="60 seconds" Click="RadioMenuFlyoutItem_Click"/>
+                        </MenuFlyoutSubItem>
                         <MenuFlyoutItem x:Name="AboutButton" Text="About" Click="AboutButton_Click">
                             <MenuFlyoutItem.Icon>
                                 <FontIcon Glyph="&#xE946;"/>
