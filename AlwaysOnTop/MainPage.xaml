@@ -57,11 +57,11 @@
                                 <FontIcon Glyph="&#xE977;"/>
                             </MenuFlyoutItem.Icon>
                         </MenuFlyoutItem>
-                        <MenuFlyoutSubItem x:Name="AutoRefreshButton" Text="Auto Refresh" Icon="Clock">
-                            <muxc:RadioMenuFlyoutItem Text="None" Click="RadioMenuFlyoutItem_Click" IsChecked="True"/>
-                            <muxc:RadioMenuFlyoutItem Text="15 seconds" Click="RadioMenuFlyoutItem_Click"/>
-                            <muxc:RadioMenuFlyoutItem Text="30 seconds" Click="RadioMenuFlyoutItem_Click"/>
-                            <muxc:RadioMenuFlyoutItem Text="60 seconds" Click="RadioMenuFlyoutItem_Click"/>
+                        <MenuFlyoutSubItem Text="Auto Refresh" Icon="Clock">
+                            <muxc:RadioMenuFlyoutItem Text="None" Click="AutoRefreshButton_Click" IsChecked="True"/>
+                            <muxc:RadioMenuFlyoutItem Text="15 seconds" Click="AutoRefreshButton_Click"/>
+                            <muxc:RadioMenuFlyoutItem Text="30 seconds" Click="AutoRefreshButton_Click"/>
+                            <muxc:RadioMenuFlyoutItem Text="60 seconds" Click="AutoRefreshButton_Click"/>
                         </MenuFlyoutSubItem>
                         <MenuFlyoutItem x:Name="AboutButton" Text="About" Click="AboutButton_Click">
                             <MenuFlyoutItem.Icon>
@@ -72,6 +72,7 @@
                 </Button.Flyout>
             </Button>
         </Grid>
+        
         <WebView x:Name="BrowserWindow" Grid.Row="2" Margin="0" NavigationStarting="BrowserWindow_NavigationStarting" NavigationCompleted="BrowserWindow_NavigationCompleted" NavigationFailed="BrowserWindow_NavigationFailed" ContainsFullScreenElementChanged="BrowserWindow_ContainsFullScreenElementChanged"/>
 
         <ScrollViewer x:Name="Howtouse" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center">
@@ -85,18 +86,14 @@
                     </StackPanel>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <Border Margin="8" Width="48" Height="48" Background="{ThemeResource SystemChromeMediumLowColor}">
-                        <FontIcon Glyph="&#xE72D;" FontSize="36" Foreground="{ThemeResource ApplicationForegroundThemeBrush}" />
-                    </Border>
+                    <FontIcon Glyph="&#xE72D;" Margin="8" FontSize="48" Foreground="{ThemeResource ApplicationForegroundThemeBrush}" />
                     <StackPanel>
                         <TextBlock Margin="8,4,0,0" Text="2. Share" Style="{StaticResource SubtitleTextBlockStyle}"/>
                         <TextBlock Margin="16,4,0,0" Text="Select [Share] in the menu." TextWrapping="Wrap"/>
                     </StackPanel>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <Border Margin="8" Width="48" Height="48" Background="{ThemeResource SystemAccentColor}">
-                        <Image Margin="6" Source="Assets/Miniview.png"/>
-                    </Border>
+                    <Image Margin="8" Height="48" Source="Assets/ic_fluent_picture_in_picture_24_filled.png"/>
                     <StackPanel>
                         <TextBlock Margin="8,4,0,0" Text="3. Select" Style="{StaticResource SubtitleTextBlockStyle}"/>
                         <TextBlock Margin="16,4,0,0" Text="Tap [Alwats on Top]." TextWrapping="Wrap"/>

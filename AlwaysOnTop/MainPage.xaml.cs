@@ -236,7 +236,7 @@ namespace AlwaysOnTop
             var success = await Windows.System.Launcher.LaunchUriAsync(uriBrowser);
         }
 
-        private void RadioMenuFlyoutItem_Click(object sender, RoutedEventArgs e)
+        private void AutoRefreshButton_Click(object sender, RoutedEventArgs e)
         {
             autoRefreshTimer.Stop();
             string content = (sender as RadioMenuFlyoutItem).Text;
