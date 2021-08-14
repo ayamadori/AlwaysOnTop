@@ -18,13 +18,13 @@
     <Grid>
         <ScrollViewer>
             <StackPanel Margin="0,12">
-                <TextBlock Text="Always on Top&#xA;Version 1.4.0&#xA;&#xA;Copyright (C) Ayamadori" TextWrapping="Wrap"/>
-                <HyperlinkButton Content="https://github.com/ayamadori/AlwaysOnTop" NavigateUri="https://github.com/ayamadori/AlwaysOnTop"/>
+                <TextBlock Text="Always on Top&#xA;Version 1.4.0&#xA;Copyright (C) Ayamadori" TextWrapping="Wrap"/>
+                <HyperlinkButton Content="Website" NavigateUri="https://github.com/ayamadori/AlwaysOnTop" Margin="0,8,0,0"/>
                 <HyperlinkButton Content="Privacy Policy" NavigateUri="https://ayamadori.github.io/AlwaysOnTop/PrivacyPolicy.html"/>
                 <Button x:Name="RateButton" Margin="0,12,0,0" Click="RateButton_Click">
                     <Button.Content>
                         <StackPanel Orientation="Horizontal">
-                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE728;" Margin="0,0,8,0"/>
+                            <FontIcon Glyph="&#xE728;" Margin="0,0,8,0"/>
                             <TextBlock Text="Rate &amp; Review"/>
                         </StackPanel>
                     </Button.Content>
@@ -32,7 +32,7 @@
                 <Button x:Name="FeedbackButton" Margin="0,12,0,0" Click="FeedbackButton_Click" Visibility="Collapsed">
                     <Button.Content>
                         <StackPanel Orientation="Horizontal">
-                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE939;" Margin="0,0,8,0"/>
+                            <FontIcon Glyph="&#xE939;" Margin="0,0,8,0"/>
                             <TextBlock Text="Send feedback"/>
                         </StackPanel>
                     </Button.Content>

@@ -177,6 +177,15 @@ namespace AlwaysOnTop
 
         private void MobileViewButton_Click(object sender, RoutedEventArgs e)
         {
+            MobileViewButton.Visibility = Visibility.Collapsed;
+            PCViewButton.Visibility = Visibility.Visible;
+            OpenBrowser();
+        }
+
+        private void PCViewButton_Click(object sender, RoutedEventArgs e)
+        {
+            MobileViewButton.Visibility = Visibility.Visible;
+            PCViewButton.Visibility = Visibility.Collapsed;
             OpenBrowser();
         }
 
@@ -197,7 +206,7 @@ namespace AlwaysOnTop
             {
                 Uri uri = new Uri(address);
 
-                if (MobileViewButton.IsChecked)
+                if (MobileViewButton.Visibility == Visibility.Collapsed) // in Mobile View
                 {
                     // Change UserAgent and refresh
                     HttpRequestMessage requestMsg = new HttpRequestMessage(HttpMethod.Get, uri);
@@ -238,5 +247,6 @@ namespace AlwaysOnTop
                 autoRefreshTimer.Stop();
             }
         }
+
     }
 }

@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -27,36 +28,45 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <ProgressRing Grid.Column="0" x:Name="LoadingIndicator" IsActive="False" Margin="8,0" Visibility="Visible"/>
-            <Button Grid.Column="0" x:Name="RefreshButton" Click="RefreshButton_Click" ToolTipService.ToolTip="Refresh" ToolTipService.Placement="Bottom" Background="Transparent" Margin="8,0">
+            <Button Grid.Column="0" x:Name="RefreshButton" Click="RefreshButton_Click" ToolTipService.ToolTip="Refresh" ToolTipService.Placement="Bottom" Margin="8,0" Style="{StaticResource CommandBarFlyoutEllipsisButtonStyle}">
                 <Button.Content>
-                    <FontIcon Glyph="&#xE72C;"/>
+                    <FontIcon Glyph="&#xE72C;" FontSize="16"/>
                 </Button.Content>
             </Button>
-            <TextBox Grid.Column="1" x:Name="AddressBox" PlaceholderText="Enter web address" InputScope="Url" Margin="0,4" HorizontalAlignment="Stretch" BorderBrush="Transparent" Background="{ThemeResource SystemAltHighColor}" KeyDown="AddressBox_KeyDown"/>
-            <Button Grid.Column="2" x:Name="AOTButton" Click="AOTButton_Click" ToolTipService.ToolTip="Always on Top" ToolTipService.Placement="Bottom" Background="Transparent" Margin="8,0">
+            <TextBox Grid.Column="1" x:Name="AddressBox" PlaceholderText="Enter web address" InputScope="Url" Margin="0,3" HorizontalAlignment="Stretch" Background="{ThemeResource SystemAltHighColor}" KeyDown="AddressBox_KeyDown"/>
+            <Button Grid.Column="2" x:Name="AOTButton" Click="AOTButton_Click" ToolTipService.ToolTip="Always on Top" ToolTipService.Placement="Bottom" Margin="8,0" Style="{StaticResource CommandBarFlyoutEllipsisButtonStyle}">
                 <Button.Content>
-                    <FontIcon Glyph="&#xE8B9;" />
+                    <!--<FontIcon Glyph="&#xE8B9;" />-->
+                    <muxc:ImageIcon Source="Assets/ic_fluent_picture_in_picture_24_regular.svg" Height="20"/>
                 </Button.Content>
             </Button>
-            <Button Grid.Column="2" x:Name="BackButton" Click="BackButton_Click" Visibility="Collapsed" ToolTipService.ToolTip="Back" ToolTipService.Placement="Bottom" Background="Transparent" Margin="8,0">
+            <Button Grid.Column="2" x:Name="BackButton" Click="BackButton_Click" Visibility="Collapsed" ToolTipService.ToolTip="Back" ToolTipService.Placement="Bottom" Margin="8,0" Style="{StaticResource CommandBarFlyoutEllipsisButtonStyle}">
                 <Button.Content>
-                    <FontIcon Glyph="&#xE2B4;" />
+                    <FontIcon Glyph="&#xE2B4;" FontSize="16"/>
                 </Button.Content>
             </Button>
-            <Button Grid.Column="3" Background="Transparent" Margin="0,0,8,0" ToolTipService.ToolTip="More" ToolTipService.Placement="Bottom">
+            <Button Grid.Column="3" Margin="0,0,8,0" ToolTipService.ToolTip="See more" ToolTipService.Placement="Bottom" Style="{StaticResource CommandBarFlyoutEllipsisButtonStyle}">
                 <Button.Content>
-                    <FontIcon Glyph="&#xE10C;" />
+                    <FontIcon Glyph="&#xE10C;" FontSize="16"/>
                 </Button.Content>
                 <Button.Flyout>
                     <MenuFlyout Placement="BottomEdgeAlignedRight">
-                        <ToggleMenuFlyoutItem x:Name="MobileViewButton" Text="Mobile View" Icon="CellPhone" Click="MobileViewButton_Click"/>
+                        <MenuFlyoutItem x:Name="MobileViewButton" Text="Mobile View" Icon="CellPhone" Click="MobileViewButton_Click"/>
+                        <MenuFlyoutItem x:Name="PCViewButton" Text="PC View" Visibility="Collapsed" Click="PCViewButton_Click">
+                            <MenuFlyoutItem.Icon>
+                                <FontIcon Glyph="&#xE977;"/>
+                            </MenuFlyoutItem.Icon>
+                        </MenuFlyoutItem>
                         <ToggleMenuFlyoutItem x:Name="AutoRefreshButton" Text="Auto Refresh" Icon="Refresh" Click="AutoRefreshButton_Click"/>
-                        <MenuFlyoutItem x:Name="AboutButton" Text="About" Icon="Help" Click="AboutButton_Click"/>
+                        <MenuFlyoutItem x:Name="AboutButton" Text="About" Click="AboutButton_Click">
+                            <MenuFlyoutItem.Icon>
+                                <FontIcon Glyph="&#xE946;"/>
+                            </MenuFlyoutItem.Icon>
+                        </MenuFlyoutItem>
                     </MenuFlyout>
                 </Button.Flyout>
             </Button>
         </Grid>
-
         <WebView x:Name="BrowserWindow" Grid.Row="2" Margin="0" NavigationStarting="BrowserWindow_NavigationStarting" NavigationCompleted="BrowserWindow_NavigationCompleted" NavigationFailed="BrowserWindow_NavigationFailed" ContainsFullScreenElementChanged="BrowserWindow_ContainsFullScreenElementChanged"/>
 
         <ScrollViewer x:Name="Howtouse" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center">
@@ -71,7 +81,7 @@
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Border Margin="8" Width="48" Height="48" Background="{ThemeResource SystemChromeMediumLowColor}">
-                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE72D;" FontSize="36" Foreground="{ThemeResource ApplicationForegroundThemeBrush}" />
+                        <FontIcon Glyph="&#xE72D;" FontSize="36" Foreground="{ThemeResource ApplicationForegroundThemeBrush}" />
                     </Border>
                     <StackPanel>
                         <TextBlock Margin="8,4,0,0" Text="2. Share" Style="{StaticResource SubtitleTextBlockStyle}"/>
