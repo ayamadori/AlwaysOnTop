@@ -126,7 +126,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\ic_fluent_picture_in_picture_24_filled.png" />
-    <Content Include="Assets\ic_fluent_picture_in_picture_24_regular.svg" />
     <Content Include="Assets\LargeTile.scale-100.png" />
     <Content Include="Assets\LargeTile.scale-125.png" />
     <Content Include="Assets\LargeTile.scale-150.png" />
