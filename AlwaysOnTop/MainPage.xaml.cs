@@ -1,4 +1,5 @@
 ﻿using Microsoft.UI.Xaml.Controls;
+using Microsoft.Web.WebView2.Core;
 using System;
 using Windows.ApplicationModel.Core;
 using Windows.UI.ViewManagement;
@@ -18,6 +19,7 @@ namespace AlwaysOnTop
     public sealed partial class MainPage : Page
     {
         private readonly DispatcherTimer autoRefreshTimer;
+        private string defaultUA;
 
         public MainPage()
         {
@@ -36,6 +38,10 @@ namespace AlwaysOnTop
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
+
+            await BrowserWindow.EnsureCoreWebView2Async();
+            defaultUA = BrowserWindow.CoreWebView2.Settings.UserAgent;
+            BrowserWindow.CoreWebView2.ContainsFullScreenElementChanged += BrowserWindow_ContainsFullScreenElementChanged;
 
             if (e.Parameter is Uri) // Protocol launch
             {
@@ -109,48 +115,34 @@ namespace AlwaysOnTop
             await dlg.ShowAsync();
         }
 
-        private void BrowserWindow_NavigationStarting(WebView sender, WebViewNavigationStartingEventArgs args)
+        private void BrowserWindow_NavigationStarting(WebView2 sender, CoreWebView2NavigationStartingEventArgs args)
         {
             LoadingIndicator.IsActive = true;
             LoadingIndicator.Visibility = Visibility.Visible;
             RefreshButton.Visibility = Visibility.Collapsed;
         }
 
-        private void BrowserWindow_NavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args)
+        private void BrowserWindow_NavigationCompleted(WebView2 sender, CoreWebView2NavigationCompletedEventArgs args)
         {
             LoadingIndicator.IsActive = false;
             LoadingIndicator.Visibility = Visibility.Collapsed;
             ErrorWindow.Visibility = Visibility.Collapsed;
             RefreshButton.Visibility = Visibility.Visible;
             BrowserWindow.Visibility = Visibility.Visible;
-            TitleBlock.Text = BrowserWindow.DocumentTitle;
+            TitleBlock.Text = BrowserWindow.CoreWebView2.DocumentTitle;
             AddressBox.Text = BrowserWindow.Source.AbsoluteUri;
         }
-
-        private void BrowserWindow_NavigationFailed(object sender, WebViewNavigationFailedEventArgs e)
-        {
-            LoadingIndicator.IsActive = false;
-            LoadingIndicator.Visibility = Visibility.Collapsed;
-            RefreshButton.Visibility = Visibility.Visible;
-
-            BrowserWindow.Visibility = Visibility.Collapsed;
-            ErrorTitle.Text = "Navigation Failed";
-            ErrorContent.Text = e.WebErrorStatus.ToString();
-            ErrorWindow.Visibility = Visibility.Visible;
-            TitleBlock.Text = ErrorTitle.Text;
-        }
-
-        private void BrowserWindow_ContainsFullScreenElementChanged(WebView sender, object args)
+        private void BrowserWindow_ContainsFullScreenElementChanged(CoreWebView2 sender, object args)
         {
             var applicationView = ApplicationView.GetForCurrentView();
 
             if (sender.ContainsFullScreenElement)
             {
                 CommBar.Visibility = Visibility.Collapsed;
+                TitleBar.Visibility = Visibility.Collapsed;
 
                 if (applicationView.ViewMode == ApplicationViewMode.Default)
-                {
-                    TitleBar.Visibility = Visibility.Collapsed;
+                {                   
                     applicationView.TryEnterFullScreenMode();
                 }
                 else if (applicationView.ViewMode == ApplicationViewMode.CompactOverlay)
@@ -162,10 +154,10 @@ namespace AlwaysOnTop
             else
             {
                 CommBar.Visibility = Visibility.Visible;
+                TitleBar.Visibility = Visibility.Visible;
 
                 if (applicationView.IsFullScreenMode)
                 {
-                    TitleBar.Visibility = Visibility.Visible;
                     applicationView.ExitFullScreenMode();
                 }
                 else if (applicationView.ViewMode == ApplicationViewMode.CompactOverlay)
@@ -189,7 +181,7 @@ namespace AlwaysOnTop
             OpenBrowser();
         }
 
-        private void OpenBrowser()
+        private async void OpenBrowser()
         {
             Howtouse.Visibility = Visibility.Collapsed;
             string address = AddressBox.Text;
@@ -208,17 +200,17 @@ namespace AlwaysOnTop
 
                 if (MobileViewButton.Visibility == Visibility.Collapsed) // in Mobile View
                 {
-                    // Change UserAgent and refresh
-                    HttpRequestMessage requestMsg = new HttpRequestMessage(HttpMethod.Get, uri);
+                    // Change UserAgent
                     // https://qiita.com/niwasawa/items/df30ffddf2e709b2ca43
                     string ua = "Mozilla/5.0 (iPhone; CPU iPhone OS 13_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0 Mobile/15E148 Safari/604.1";
-                    requestMsg.Headers.Add("User-Agent", ua);
-                    BrowserWindow.NavigateWithHttpRequestMessage(requestMsg);
+                    BrowserWindow.CoreWebView2.Settings.UserAgent = ua;
                 }
                 else
                 {
-                    BrowserWindow.Navigate(uri);
+                    // Reset UA
+                    BrowserWindow.CoreWebView2.Settings.UserAgent = defaultUA;
                 }
+                BrowserWindow.Source = uri;
             }
             else
             {
