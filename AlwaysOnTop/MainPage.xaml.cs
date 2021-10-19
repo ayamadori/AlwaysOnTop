@@ -20,6 +20,9 @@ namespace AlwaysOnTop
     {
         private readonly DispatcherTimer autoRefreshTimer;
         private string defaultUA;
+        // https://qiita.com/niwasawa/items/df30ffddf2e709b2ca43
+        private const string mobileUA = "Mozilla/5.0 (iPhone; CPU iPhone OS 13_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0 Mobile/15E148 Safari/604.1";
+
 
         public MainPage()
         {
@@ -181,7 +184,7 @@ namespace AlwaysOnTop
             OpenBrowser();
         }
 
-        private async void OpenBrowser()
+        private void OpenBrowser()
         {
             Howtouse.Visibility = Visibility.Collapsed;
             string address = AddressBox.Text;
@@ -201,9 +204,7 @@ namespace AlwaysOnTop
                 if (MobileViewButton.Visibility == Visibility.Collapsed) // in Mobile View
                 {
                     // Change UserAgent
-                    // https://qiita.com/niwasawa/items/df30ffddf2e709b2ca43
-                    string ua = "Mozilla/5.0 (iPhone; CPU iPhone OS 13_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0 Mobile/15E148 Safari/604.1";
-                    BrowserWindow.CoreWebView2.Settings.UserAgent = ua;
+                    BrowserWindow.CoreWebView2.Settings.UserAgent = mobileUA;
                 }
                 else
                 {
