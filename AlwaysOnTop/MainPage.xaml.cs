@@ -1,7 +1,9 @@
 ﻿using Microsoft.UI.Xaml.Controls;
 using Microsoft.Web.WebView2.Core;
 using System;
+using System.Diagnostics;
 using Windows.ApplicationModel.Core;
+using Windows.Services.Store;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -237,6 +239,44 @@ namespace AlwaysOnTop
             {
                 autoRefreshTimer.Interval = new TimeSpan(0, 0, int.Parse(content.Substring(0, 2)));
                 autoRefreshTimer.Start();
+            }
+        }
+        private async void DonateButton_Click(object sender, RoutedEventArgs e)
+        {
+            StoreContext storeContext = StoreContext.GetDefault();
+            string StoreId = "9PFX1DR44QZC";
+            StorePurchaseResult result = await storeContext.RequestPurchaseAsync(StoreId);
+            if (result.ExtendedError != null)
+            {
+                Debug.WriteLine(result.ExtendedError);
+                return;
+            }
+
+            switch (result.Status)
+            {
+                case StorePurchaseStatus.AlreadyPurchased: // should never get this for a managed consumable since they are stackable
+                    Debug.WriteLine("You already bought this consumable.");
+                    break;
+
+                case StorePurchaseStatus.Succeeded:
+                    Debug.WriteLine("You bought.");
+                    break;
+
+                case StorePurchaseStatus.NotPurchased:
+                    Debug.WriteLine("Product was not purchased, it may have been canceled.");
+                    break;
+
+                case StorePurchaseStatus.NetworkError:
+                    Debug.WriteLine("Product was not purchased due to a network error.");
+                    break;
+
+                case StorePurchaseStatus.ServerError:
+                    Debug.WriteLine("Product was not purchased due to a server error.");
+                    break;
+
+                default:
+                    Debug.WriteLine("Product was not purchased due to an unknown error.");
+                    break;
             }
         }
     }

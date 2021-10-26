@@ -62,6 +62,7 @@
                             <muxc:RadioMenuFlyoutItem Text="30 seconds" Click="AutoRefreshButton_Click"/>
                             <muxc:RadioMenuFlyoutItem Text="60 seconds" Click="AutoRefreshButton_Click"/>
                         </MenuFlyoutSubItem>
+                        <MenuFlyoutItem x:Name="DonateButton" Text="Donate" Icon="Like" Click="DonateButton_Click"/>
                         <MenuFlyoutItem x:Name="AboutButton" Text="About" Click="AboutButton_Click">
                             <MenuFlyoutItem.Icon>
                                 <FontIcon Glyph="&#xE946;"/>
