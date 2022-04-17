@@ -73,7 +73,7 @@
             </Button>
         </Grid>
         
-        <muxc:WebView2 x:Name="BrowserWindow" Grid.Row="2" Margin="0" NavigationStarting="BrowserWindow_NavigationStarting" NavigationCompleted="BrowserWindow_NavigationCompleted"/>
+        <muxc:WebView2 x:Name="BrowserWindow" Grid.Row="2" Margin="0" NavigationStarting="BrowserWindow_NavigationStarting" NavigationCompleted="BrowserWindow_NavigationCompleted" Visibility="Collapsed"/>
 
         <ScrollViewer x:Name="Howtouse" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center">
             <StackPanel>

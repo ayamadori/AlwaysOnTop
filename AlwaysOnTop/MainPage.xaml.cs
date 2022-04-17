@@ -188,6 +188,7 @@ namespace AlwaysOnTop
 
         private void OpenBrowser()
         {
+            BrowserWindow.Visibility = Visibility.Visible;
             Howtouse.Visibility = Visibility.Collapsed;
             string address = AddressBox.Text;
 
