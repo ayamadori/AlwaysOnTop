@@ -30,13 +30,9 @@ namespace AlwaysOnTop
         {
             this.InitializeComponent();
 
-            // https://www.eternalcoding.com/?p=1952
+            // https://docs.microsoft.com/en-us/windows/apps/develop/title-bar?tabs=winui2
             CoreApplicationViewTitleBar coreTitleBar = CoreApplication.GetCurrentView().TitleBar;
             coreTitleBar.ExtendViewIntoTitleBar = false;
-
-            // Register a handler for when the title bar visibility changes.
-            // For example, when the title bar is invoked in full screen mode.
-            //coreTitleBar.IsVisibleChanged += CoreTitleBar_IsVisibleChanged;
 
             // Setup AutoRefresh timer
             autoRefreshTimer = new DispatcherTimer();
@@ -90,6 +86,7 @@ namespace AlwaysOnTop
 
             var coreTitleBar = CoreApplication.GetCurrentView().TitleBar;
             coreTitleBar.ExtendViewIntoTitleBar = true;
+            // https://www.eternalcoding.com/?p=1952
             Window.Current.SetTitleBar(AppTitleBar); // set transparent titlebar
             CommBar.Margin = new Thickness(0, 0, 100, 0); // move for Close button and drag area
         }

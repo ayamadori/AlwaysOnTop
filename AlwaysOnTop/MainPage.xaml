@@ -9,7 +9,6 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
-            <!--<RowDefinition Height="Auto"/>-->
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
@@ -25,21 +24,30 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <ProgressRing Grid.Column="0" x:Name="LoadingIndicator" IsActive="False" Margin="8,0" Visibility="Visible"/>
-            <Button Grid.Column="0" x:Name="RefreshButton" Click="RefreshButton_Click" ToolTipService.ToolTip="Refresh" ToolTipService.Placement="Bottom" Margin="8,0" Style="{StaticResource CommandBarFlyoutEllipsisButtonStyle}">
+            <Button Grid.Column="0" x:Name="RefreshButton" Click="RefreshButton_Click" ToolTipService.ToolTip="Refresh (Ctrl+R)" ToolTipService.Placement="Bottom" Margin="8,0" Style="{StaticResource CommandBarFlyoutEllipsisButtonStyle}">
                 <Button.Content>
                     <FontIcon Glyph="&#xE72C;"/>
                 </Button.Content>
+                <Button.KeyboardAccelerators>
+                    <KeyboardAccelerator Modifiers="Control" Key="R"/>
+                </Button.KeyboardAccelerators>
             </Button>
             <TextBox Grid.Column="1" x:Name="AddressBox" PlaceholderText="Enter web address" InputScope="Url" Margin="0,3" HorizontalAlignment="Stretch" Background="{ThemeResource SystemAltHighColor}" KeyDown="AddressBox_KeyDown"/>
-            <Button Grid.Column="2" x:Name="AOTButton" Click="AOTButton_Click" ToolTipService.ToolTip="Always on Top" ToolTipService.Placement="Bottom" Margin="8,0" Style="{StaticResource CommandBarFlyoutEllipsisButtonStyle}">
+            <Button Grid.Column="2" x:Name="AOTButton" Click="AOTButton_Click" ToolTipService.ToolTip="Always on Top (Ctrl+Up)" ToolTipService.Placement="Bottom" Margin="8,0" Style="{StaticResource CommandBarFlyoutEllipsisButtonStyle}">
                 <Button.Content>
                     <FontIcon Glyph="&#xEE49;"/>
                 </Button.Content>
+                <Button.KeyboardAccelerators>
+                    <KeyboardAccelerator Modifiers="Control" Key="Up"/>
+                </Button.KeyboardAccelerators>
             </Button>
-            <Button Grid.Column="2" x:Name="BackButton" Click="BackButton_Click" Visibility="Collapsed" ToolTipService.ToolTip="Back" ToolTipService.Placement="Bottom" Margin="8,0" Style="{StaticResource CommandBarFlyoutEllipsisButtonStyle}">
+            <Button Grid.Column="2" x:Name="BackButton" Click="BackButton_Click" Visibility="Collapsed" ToolTipService.ToolTip="Back (Ctrl+Down)" ToolTipService.Placement="Bottom" Margin="8,0" Style="{StaticResource CommandBarFlyoutEllipsisButtonStyle}">
                 <Button.Content>
                     <FontIcon Glyph="&#xEE47;"/>
                 </Button.Content>
+                <Button.KeyboardAccelerators>
+                    <KeyboardAccelerator Modifiers="Control" Key="Down"/>
+                </Button.KeyboardAccelerators>
             </Button>
             <Button Grid.Column="3" x:Name="DonateButton" Click="DonateButton_Click" ToolTipService.ToolTip="Donate" ToolTipService.Placement="Bottom" Margin="8,0" Style="{StaticResource CommandBarFlyoutEllipsisButtonStyle}">
                 <Button.Content>
@@ -53,11 +61,18 @@
                 </Button.Content>
                 <Button.Flyout>
                     <MenuFlyout Placement="BottomEdgeAlignedRight">
-                        <MenuFlyoutItem x:Name="MobileViewButton" Text="Mobile View" Icon="CellPhone" Click="MobileViewButton_Click"/>
+                        <MenuFlyoutItem x:Name="MobileViewButton" Text="Mobile View" Icon="CellPhone" Click="MobileViewButton_Click">
+                            <MenuFlyoutItem.KeyboardAccelerators>
+                                <KeyboardAccelerator Modifiers="Control" Key="M"/>
+                            </MenuFlyoutItem.KeyboardAccelerators>
+                        </MenuFlyoutItem>
                         <MenuFlyoutItem x:Name="PCViewButton" Text="PC View" Visibility="Collapsed" Click="PCViewButton_Click">
                             <MenuFlyoutItem.Icon>
                                 <FontIcon Glyph="&#xE977;"/>
                             </MenuFlyoutItem.Icon>
+                            <MenuFlyoutItem.KeyboardAccelerators>
+                                <KeyboardAccelerator Modifiers="Control" Key="P"/>
+                            </MenuFlyoutItem.KeyboardAccelerators>
                         </MenuFlyoutItem>
                         <MenuFlyoutSubItem Text="Auto Refresh" Icon="Clock">
                             <muxc:RadioMenuFlyoutItem Text="None" Click="AutoRefreshButton_Click" IsChecked="True"/>
