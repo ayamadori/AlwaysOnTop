@@ -55,23 +55,18 @@ namespace AlwaysOnTop
                 OpenBrowser();
 
                 // Change to CompactOverlay mode automatically
-                var applicationView = ApplicationView.GetForCurrentView();
-                ViewModePreferences compactOptions = ViewModePreferences.CreateDefault(ApplicationViewMode.CompactOverlay);
-                compactOptions.CustomSize = new Windows.Foundation.Size(500, 500); // Max size
-                bool modeSwitched = await applicationView.TryEnterViewModeAsync(ApplicationViewMode.CompactOverlay, compactOptions);
-                if (modeSwitched)
-                {
-                    // modeSwitched is sometimes false. Why?
-                    AOTButton.Visibility = Visibility.Collapsed;
-                    BackButton.Visibility = Visibility.Visible;
-                }
+                SetCompactOverlay();
             }
         }
 
         private async void AOTButton_Click(object sender, RoutedEventArgs e)
         {
-            // https://blogs.msdn.microsoft.com/universal-windows-app-model/2017/02/11/compactoverlay-mode-aka-picture-in-picture/
+            SetCompactOverlay();
+        }
 
+        private async void SetCompactOverlay()
+        {
+            // https://blogs.msdn.microsoft.com/universal-windows-app-model/2017/02/11/compactoverlay-mode-aka-picture-in-picture/
             bool modeSwitched;
             var applicationView = ApplicationView.GetForCurrentView();
 
@@ -155,7 +150,7 @@ namespace AlwaysOnTop
                 CommBar.Visibility = Visibility.Collapsed;
 
                 if (applicationView.ViewMode == ApplicationViewMode.Default)
-                {                   
+                {
                     applicationView.TryEnterFullScreenMode();
                 }
                 else if (applicationView.ViewMode == ApplicationViewMode.CompactOverlay)
