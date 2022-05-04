@@ -109,7 +109,7 @@ namespace AlwaysOnTop
 
             var coreTitleBar = CoreApplication.GetCurrentView().TitleBar;
             coreTitleBar.ExtendViewIntoTitleBar = false;
-            CommBar.Margin = new Thickness(0, 0, 0, 0);
+            CommBar.Margin = new Thickness(0, 0, 0, 0); // reset
         }
 
         private void RefreshButton_Click(object sender, RoutedEventArgs e)
