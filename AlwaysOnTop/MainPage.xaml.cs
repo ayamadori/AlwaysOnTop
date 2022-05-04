@@ -32,8 +32,11 @@ namespace AlwaysOnTop
 
             // https://www.eternalcoding.com/?p=1952
             CoreApplicationViewTitleBar coreTitleBar = CoreApplication.GetCurrentView().TitleBar;
-            coreTitleBar.ExtendViewIntoTitleBar = true;
-            Window.Current.SetTitleBar(TitleBar);
+            coreTitleBar.ExtendViewIntoTitleBar = false;
+
+            // Register a handler for when the title bar visibility changes.
+            // For example, when the title bar is invoked in full screen mode.
+            //coreTitleBar.IsVisibleChanged += CoreTitleBar_IsVisibleChanged;
 
             // Setup AutoRefresh timer
             autoRefreshTimer = new DispatcherTimer();
@@ -84,6 +87,11 @@ namespace AlwaysOnTop
                 AOTButton.Visibility = Visibility.Collapsed;
                 BackButton.Visibility = Visibility.Visible;
             }
+
+            var coreTitleBar = CoreApplication.GetCurrentView().TitleBar;
+            coreTitleBar.ExtendViewIntoTitleBar = true;
+            Window.Current.SetTitleBar(AppTitleBar); // set transparent titlebar
+            CommBar.Margin = new Thickness(0, 0, 100, 0); // move for Close button and drag area
         }
 
         private async void BackButton_Click(object sender, RoutedEventArgs e)
@@ -98,6 +106,10 @@ namespace AlwaysOnTop
                 AOTButton.Visibility = Visibility.Visible;
                 BackButton.Visibility = Visibility.Collapsed;
             }
+
+            var coreTitleBar = CoreApplication.GetCurrentView().TitleBar;
+            coreTitleBar.ExtendViewIntoTitleBar = false;
+            CommBar.Margin = new Thickness(0, 0, 0, 0);
         }
 
         private void RefreshButton_Click(object sender, RoutedEventArgs e)
@@ -134,7 +146,7 @@ namespace AlwaysOnTop
             ErrorWindow.Visibility = Visibility.Collapsed;
             RefreshButton.Visibility = Visibility.Visible;
             BrowserWindow.Visibility = Visibility.Visible;
-            TitleBlock.Text = BrowserWindow.CoreWebView2.DocumentTitle;
+            ApplicationView.GetForCurrentView().Title = BrowserWindow.CoreWebView2.DocumentTitle;
             AddressBox.Text = BrowserWindow.Source.AbsoluteUri;
         }
         private void BrowserWindow_ContainsFullScreenElementChanged(CoreWebView2 sender, object args)
@@ -144,7 +156,6 @@ namespace AlwaysOnTop
             if (sender.ContainsFullScreenElement)
             {
                 CommBar.Visibility = Visibility.Collapsed;
-                TitleBar.Visibility = Visibility.Collapsed;
 
                 if (applicationView.ViewMode == ApplicationViewMode.Default)
                 {                   
@@ -159,7 +170,6 @@ namespace AlwaysOnTop
             else
             {
                 CommBar.Visibility = Visibility.Visible;
-                TitleBar.Visibility = Visibility.Visible;
 
                 if (applicationView.IsFullScreenMode)
                 {
@@ -222,7 +232,7 @@ namespace AlwaysOnTop
                 ErrorTitle.Text = "Invalid web address";
                 ErrorContent.Text = "Check and re-enter web address";
                 ErrorWindow.Visibility = Visibility.Visible;
-                TitleBlock.Text = ErrorTitle.Text;
+                ApplicationView.GetForCurrentView().Title = ErrorTitle.Text;
             }
         }
 

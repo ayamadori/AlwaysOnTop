@@ -9,18 +9,14 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
+            <!--<RowDefinition Height="Auto"/>-->
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!--https://www.eternalcoding.com/uwptake-the-control-of-your-title-bar/-->
-        <!--Background="Transparent" is needed to move window by using mouse-->
-        <Grid Grid.Row="0" x:Name="TitleBar" Background="Transparent" Height="32">
-            <TextBlock x:Name="TitleBlock" Text="Always on Top" VerticalAlignment="Center" HorizontalAlignment="Stretch" FontSize="12" Foreground="{ThemeResource ApplicationForegroundThemeBrush}" Margin="10,0"/>
-        </Grid>
+        <Grid x:Name="AppTitleBar" Grid.Row="0" Height="32" Visibility="Collapsed" Background="Transparent"/>
 
-        <Grid x:Name="CommBar" Grid.Row="1" HorizontalAlignment="Stretch" Background="{ThemeResource SystemChromeMediumLowColor}" BorderBrush="{ThemeResource SystemChromeHighColor}" BorderThickness="0,1">
+        <Grid x:Name="CommBar" Grid.Row="0" HorizontalAlignment="Stretch" Background="{ThemeResource SystemChromeMediumLowColor}" BorderBrush="{ThemeResource SystemChromeHighColor}" BorderThickness="0,1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="54.4"/>
                 <ColumnDefinition Width="*"/>
@@ -36,12 +32,12 @@
             <TextBox Grid.Column="1" x:Name="AddressBox" PlaceholderText="Enter web address" InputScope="Url" Margin="0,3" HorizontalAlignment="Stretch" Background="{ThemeResource SystemAltHighColor}" KeyDown="AddressBox_KeyDown"/>
             <Button Grid.Column="2" x:Name="AOTButton" Click="AOTButton_Click" ToolTipService.ToolTip="Always on Top" ToolTipService.Placement="Bottom" Margin="8,0" Style="{StaticResource CommandBarFlyoutEllipsisButtonStyle}">
                 <Button.Content>
-                    <FontIcon Glyph="&#xE8B9;"/>
+                    <FontIcon Glyph="&#xEE49;"/>
                 </Button.Content>
             </Button>
             <Button Grid.Column="2" x:Name="BackButton" Click="BackButton_Click" Visibility="Collapsed" ToolTipService.ToolTip="Back" ToolTipService.Placement="Bottom" Margin="8,0" Style="{StaticResource CommandBarFlyoutEllipsisButtonStyle}">
                 <Button.Content>
-                    <FontIcon Glyph="&#xE2B4;"/>
+                    <FontIcon Glyph="&#xEE47;"/>
                 </Button.Content>
             </Button>
             <Button Grid.Column="3" Margin="0,0,8,0" ToolTipService.ToolTip="See more" ToolTipService.Placement="Bottom" Style="{StaticResource CommandBarFlyoutEllipsisButtonStyle}">
@@ -73,9 +69,9 @@
             </Button>
         </Grid>
         
-        <muxc:WebView2 x:Name="BrowserWindow" Grid.Row="2" Margin="0" NavigationStarting="BrowserWindow_NavigationStarting" NavigationCompleted="BrowserWindow_NavigationCompleted" Visibility="Collapsed"/>
+        <muxc:WebView2 x:Name="BrowserWindow" Grid.Row="1" Margin="0" NavigationStarting="BrowserWindow_NavigationStarting" NavigationCompleted="BrowserWindow_NavigationCompleted" Visibility="Collapsed"/>
 
-        <ScrollViewer x:Name="Howtouse" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center">
+        <ScrollViewer x:Name="Howtouse" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center">
             <StackPanel>
                 <TextBlock Margin="8" Text="How to use" Style="{StaticResource TitleTextBlockStyle}"/>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
@@ -104,7 +100,7 @@
             </StackPanel>
         </ScrollViewer>
 
-        <StackPanel x:Name="ErrorWindow" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Collapsed">
+        <StackPanel x:Name="ErrorWindow" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Collapsed">
             <TextBlock x:Name="ErrorTitle" Style="{StaticResource SubtitleTextBlockStyle}"/>
             <TextBlock x:Name="ErrorContent" Margin="0,8"/>
         </StackPanel>
