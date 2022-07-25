@@ -18,7 +18,7 @@
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WindowsXamlEnableOverview>true</WindowsXamlEnableOverview>
     <PackageCertificateKeyFile>AlwaysOnTop_TemporaryKey.pfx</PackageCertificateKeyFile>
-    <PackageCertificateThumbprint>DA8F2D52A6CEC2CD9424B11340461D3AF877CC6C</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>D730DAA5A2745F96C62D83AE2ADD5EED005602F0</PackageCertificateThumbprint>
     <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
     <AppxBundle>Always</AppxBundle>
     <AppxBundlePlatforms>x86|x64|arm|arm64</AppxBundlePlatforms>
